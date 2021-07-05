@@ -1,0 +1,26 @@
+{
+  "name": "middle-front-praktikum-1",
+  "version": "1.0.0",
+  "description": "Study project",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel index.html --port=3000",
+    "start": "parcel index.html --port 3000 && node ./server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nilfan/middle.messenger.praktikum.yandex.git"
+  },
+  "author": "Semen Moskvartsev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nilfan/middle.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/Nilfan/middle.messenger.praktikum.yandex#readme",
+  "devDependencies": {
+    "express": "^4.17.1",
+    "handlebars": "^4.7.7",
+    "parcel-bundler": "^1.12.5",
+    "sass": "^1.35.1"
+  }
+}
