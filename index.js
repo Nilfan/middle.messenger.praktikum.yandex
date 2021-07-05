@@ -1,12 +1,6 @@
-import {
-  ErrorPage
-} from "./src/pages/error-page/error-page";
-import {
-  LoginPage
-} from "./src/pages/login-page/login-page";
-import {
-  SigninPage
-} from './src/pages/signin-page/signin-page'
+import ErrorPage from "./src/pages/error-page";
+import LoginPage from "./src/pages/login-page";
+import SigninPage from './src/pages/signin-page'
 import {
   UserProfilePage
 } from "./src/pages/user-profile/user-profile";
