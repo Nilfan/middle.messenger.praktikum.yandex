@@ -9,4 +9,4 @@
 
 [build]
   direction = "dist"
-
+  command = "npm run build"
