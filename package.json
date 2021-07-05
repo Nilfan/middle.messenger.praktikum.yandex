@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "parcel index.html --port=3000",
     "start": "node ./server.js",
-    "build": "parcel build index.html"
+    "build": " parcel build index.html --no-minify"
   },
   "repository": {
     "type": "git",
