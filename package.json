@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "parcel index.html --port=3000",
     "start": "node ./server.js",
-    "build": "/node_modules/parcel/.bin build index.html"
+    "build": "parcel build index.html"
   },
   "repository": {
     "type": "git",
