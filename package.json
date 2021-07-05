@@ -2,9 +2,10 @@
   "name": "middle-front-praktikum-1",
   "version": "1.0.0",
   "description": "Study project",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "dev": "parcel index.html --port=3000",
+    "server": "node index.js --port=3000",
     "build": "parcel build index.html",
     "start": "npm run build && node ./server.js"
   },

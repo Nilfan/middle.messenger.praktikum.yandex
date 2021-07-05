@@ -1,5 +1,4 @@
 const express = require('express');
-const pathUtils = require("path");
 
 const app = express();
 const PORT = 3000;
