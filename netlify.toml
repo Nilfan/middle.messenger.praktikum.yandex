@@ -12,7 +12,26 @@
   command = "npm run build"
 
 [[redirects]]
-  from = "/*"
+  from = "/signin"
   to = "/"
   status = 200
 
+[[redirects]]
+  from = "/client-error"
+  to = "/"
+  status = 200
+
+[[redirects]]
+  from = "/server-error"
+  to = "/"
+  status = 200
+
+[[redirects]]
+  from = "/login"
+  to = "/"
+  status = 200
+
+[[redirects]]
+  from = "/user-profile"
+  to = "/"
+  status = 200
