@@ -12,7 +12,7 @@
   command = "npm run build"
 
 [[redirects]]
-  from = "/singin"
+  from = "/signin"
   to = "/"
   status = 200
   force = true
