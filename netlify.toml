@@ -12,7 +12,8 @@
   command = "npm run build"
 
 [[redirects]]
-  from = "/signin"
+  from = "/*"
   to = "/"
   status = 200
   force = true
+  headers = {X-From = "Netlify"}
