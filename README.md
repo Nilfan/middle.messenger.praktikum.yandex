@@ -18,6 +18,8 @@ P.S.: Not all routes can be reached from ui, some of them can be reached only ma
 
 ## Links
 
-- [UI prototype](https://www.figma.com/file/Vu1qZWDzQk5eCyDlBmDZEV/Messenger)
-- Pull Request - https://github.com/Nilfan/middle.messenger.praktikum.yandex/pull/1
-- [Netlify-deployed project](https://goofy-benz-9f3c20.netlify.app/)
+[UI prototype](https://www.figma.com/file/Vu1qZWDzQk5eCyDlBmDZEV/Messenger)
+
+PR: https://github.com/Nilfan/middle.messenger.praktikum.yandex/pull/1
+
+Netlify: https://goofy-benz-9f3c20.netlify.app/
