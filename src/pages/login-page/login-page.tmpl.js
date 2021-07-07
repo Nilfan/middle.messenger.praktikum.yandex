@@ -1,6 +1,6 @@
 export const loginPageTemplate = `
-  <div class="center-align">
-    <main class="page-block login-block">
+  <div class="center-layout">
+    <main class="modal-block login-block">
       <form class="column-vertical-align">
         <h2 class="title"> Вход </h2>
         <div class="form-field">
@@ -8,7 +8,7 @@ export const loginPageTemplate = `
           <span class="error-text"> Неверный логин или пароль<span>
         </div>
         <div class="form-field">
-          <input class="text-input" name="password" placeholder="Пароль"/>
+          <input class="text-input invalid" name="password" placeholder="Пароль"/>
         </div>
         <div class="controls"> 
           <button class="btn btn-ok"> Авторизоваться </button>

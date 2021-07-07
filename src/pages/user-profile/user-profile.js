@@ -8,19 +8,42 @@ export class UserProfilePage {
     this.compiler = Handlebars.compile(userProfileTmpl)
   }
 
-  compile({
+  compile(ctx) {
+
+    const raws = this.generateUserInfoRows(ctx)
+    return this.compiler({
+      raws,
+      avatarImageURL: ctx.avatarImageURL
+    })
+  }
+
+  generateUserInfoRows({
     email,
     userName,
     firstName = 'n/a',
     lastName = 'n/a',
-    chatName,
     phone = 'n/a',
   }) {
-    return this.compiler(email,
-      userName,
-      firstName,
-      lastName,
-      chatName,
-      phone, )
+    return [{
+        key: 'Почта',
+        value: email
+      },
+      {
+        key: 'Логин',
+        value: userName
+      },
+      {
+        key: 'Имя',
+        value: firstName
+      },
+      {
+        key: 'Фамилия',
+        value: lastName
+      },
+      {
+        key: 'Телефон',
+        value: phone
+      },
+    ];
   }
 }

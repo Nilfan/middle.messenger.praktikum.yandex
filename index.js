@@ -13,11 +13,11 @@ import {
 
 const root = document.getElementById('root');
 
-const defaultPageName = "/login";
+const defaultPageName = "/page-not-found";
 
 const pages = new Map([
   [
-    "/client-error",
+    "/page-not-found",
     {
       pageClass: ErrorPage,
       ctx: {
@@ -38,6 +38,12 @@ const pages = new Map([
   ],
   [
     "/login",
+    {
+      pageClass: LoginPage
+    }
+  ],
+  [
+    "/",
     {
       pageClass: LoginPage
     }

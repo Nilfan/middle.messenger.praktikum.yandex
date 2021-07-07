@@ -1,6 +1,6 @@
 export const signinPageTmpl = `
-  <div class="center-align">
-    <main class="page-block signin-block">
+  <div class="center-layout">
+    <main class="modal-block signin-block">
       <form class="column-vertical-align">
         <h2 class="title"> Регистрация </h2>
 
