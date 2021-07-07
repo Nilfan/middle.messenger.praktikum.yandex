@@ -1,0 +1,251 @@
+@import "./common-style.scss";
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+* {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: $main-gray;
+}
+
+// position styles
+
+.column-vertical-align {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.center-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.center-self-align {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+// buttons and links
+
+.link {
+  text-decoration: none;
+  height: 34px;
+  text-align: center;
+  display: block;
+  line-height: 34px;
+  white-space: nowrap;
+  color: $main-blue;
+  position: relative;
+  cursor: pointer;
+
+  &.fill-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  &.warning-link {
+    color: $main-red;
+  }
+}
+
+.btn {
+  border: 0;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: $main-blue;
+  width: 190px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+
+  &-ok {
+    background-color: $main-blue;
+    color: $white;
+  }
+
+  &-cancel {
+    background-color: transparent;
+    color: $main-blue;
+  }
+}
+
+// grids and lists
+
+li {
+  list-style: none;
+}
+
+.two-column-grid {
+  .grid-raw {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 32px;
+
+    &:not(:last-child) {
+      border-bottom: $outline-gray 1px solid;
+    }
+  }
+
+  .raw-value,
+  .raw-key {
+    display: flex;
+    align-items: center;
+  }
+
+  .raw-value {
+    justify-content: flex-end;
+  }
+}
+
+// form field
+
+.form-field {
+  height: 48px;
+  width: 100%;
+
+  input {
+    border: 0;
+    border-bottom: 1px solid $main-blue;
+    padding-bottom: 1px;
+    box-sizing: border-box;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+      padding-bottom: 0;
+      border-bottom: 2px solid $main-blue;
+    }
+
+    &.invalid {
+      border-color: $main-red;
+
+      &:focus {
+        border-color: 2px solid $main-blue;
+      }
+    }
+  }
+
+  .error-text {
+    color: $main-red;
+    font-size: 12px;
+  }
+}
+
+// modal block
+
+.modal-block {
+  min-width: 200px;
+  padding: 30px 20px 10px;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+  border-radius: 20px;
+  border: solid 5px $light-blue;
+  box-sizing: border-box;
+
+  .title {
+    margin-bottom: 40px;
+  }
+
+  .controls {
+    width: 100%;
+    margin-top: auto;
+  }
+}
+
+// page container
+
+.page-content-container {
+  height: 100%;
+  display: flex;
+  width: 100%;
+
+  .page-content {
+    width: 450px;
+    margin: 200px auto;
+
+    .page-title {
+      width: 100%;
+      margin-bottom: 75px;
+    }
+  }
+}
+
+.back-button-column {
+  width: 64px;
+  background-color: $outline-gray;
+}
+
+// login block
+
+.login-block {
+  width: 290px;
+
+  form {
+    height: 360px;
+  }
+}
+
+// signin block
+
+.signin-block {
+  width: 290px;
+  form {
+    height: 520px;
+  }
+}
+
+// error block
+
+.error-block {
+  .error-text {
+    margin-bottom: 50px;
+  }
+
+  .error-code {
+    font-size: 42px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .error-text {
+    font-size: 22px;
+  }
+}
+
+// back-button-column
+
+.back-button-column {
+  width: 64px;
+  height: 100%;
+}
+
+// user-info-content
+
+.user-info-content {
+  .profile-avatar {
+    height: 120px;
+    width: 120px;
+    border-radius: 60px;
+    background-color: $outline-gray;
+    margin: 0 auto;
+    position: relative;
+
+    .default-avatar-icon {
+      font-size: 52px;
+      color: $main-blue;
+    }
+  }
+
+  .user-info-table {
+    margin-bottom: 100px;
+  }
+}
