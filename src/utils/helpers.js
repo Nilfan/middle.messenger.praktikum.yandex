@@ -13,10 +13,6 @@ function get(obj, path, defaultValue) {
   return result;
 }
 
-function identity(param) {
-  return param;
-}
-
 function first(list) {
   return Array.isArray(list) && list.length ? list[0] : undefined;
 }
@@ -28,36 +24,32 @@ function last(list) {
 
 
 
-const baseRange = (start, end, step, isRight) => {
+const baseRange = (start, end, step = 1, reverseOrder) => {
   let index = -1;
-  let length = Math.max(Math.ceil((end - start) / (step || 1)), 0);
+  let length = Math.max(Math.ceil((end - start) / (step)), 0);
   const result = new Array(length);
 
   while (length--) {
-    result[isRight ? length : ++index] = start;
+    result[reverseOrder ? length : ++index] = start;
     start += step;
   }
 
   return result;
 }
 
-function range(start = 0, end, step, isRight = false) {
+function range(start = 0, end, step, reverseOrder = false) {
   if (end === undefined) {
     end = start;
     start = 0;
   }
 
   step = step === undefined ? (start < end ? 1 : -1) : step;
-  return baseRange(start, end, step, isRight);
+  return baseRange(start, end, step, reverseOrder);
 }
 
-function rangeRight(start, end, step) {
+function reverseRange(start, end, step) {
   return range(start, end, step, true);
 }
-
-
-
-
 
 function isLength(value) {
   return (
@@ -101,7 +93,7 @@ function isArguments(value) {
 }
 
 function isEmpty(value) {
-  if (value === null) {
+  if (isNil(value)) {
     return true;
   }
 
@@ -110,8 +102,6 @@ function isEmpty(value) {
     (Array.isArray(value) ||
       typeof value === "string" ||
       typeof value.splice === "function" ||
-      isBuffer(value) ||
-      isTypedArray(value) ||
       isArguments(value))
   ) {
     return !value.length;
@@ -127,7 +117,7 @@ function isEmpty(value) {
   }
 
   for (const key in value) {
-    if (hasOwnProperty.call(value, key)) {
+    if (value.hasOwnProperty(key)) {
       return false;
     }
   }
@@ -137,7 +127,7 @@ function isEmpty(value) {
 
 function isIterable(obj) {
   // checks for null and undefined
-  if (obj == null) {
+  if (isNil(obj)) {
     return false;
   }
   return typeof obj[Symbol.iterator] === 'function';
@@ -149,7 +139,7 @@ export default {
   first,
   last,
   range,
-  rangeRight,
+  reverseRange,
   isLength,
   isNil,
   isArrayLike,

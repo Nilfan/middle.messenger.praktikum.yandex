@@ -1,19 +1,18 @@
-import {
-  userProfileTmpl
-} from "./user-profile.tmpl";
 import Handlebars from "handlebars";
+import {
+  userInfoTableTmpl
+} from "./user-info-table.tmpl";
 
-export class UserProfilePage {
+
+export class UserInfoTable {
   constructor() {
-    this.compiler = Handlebars.compile(userProfileTmpl)
+    this.compiler = Handlebars.compile(userInfoTableTmpl);
   }
 
   compile(ctx) {
-
-    const raws = this.generateUserInfoRows(ctx)
+    const rows = this.generateUserInfoRows(ctx)
     return this.compiler({
-      raws,
-      avatarImageURL: ctx.avatarImageURL
+      rows
     })
   }
 

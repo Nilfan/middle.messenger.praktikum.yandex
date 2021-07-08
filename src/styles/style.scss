@@ -1,4 +1,4 @@
-@import "./common-style.scss";
+@import "./variables.scss";
 
 html,
 body,
@@ -110,8 +110,16 @@ li {
 // form field
 
 .form-field {
-  height: 48px;
+  height: 52px;
   width: 100%;
+  box-sizing: border-box;
+
+  .form-field-label {
+    font-size: 12px;
+    position: relative;
+    top: 3px;
+    color: rgba($main-gray, 0.5);
+  }
 
   input {
     border: 0;
@@ -132,6 +140,16 @@ li {
       &:focus {
         border-color: 2px solid $main-blue;
       }
+    }
+  }
+
+  &.file-input {
+    .form-field-label {
+      top: 0;
+    }
+
+    input {
+      border-bottom: 0;
     }
   }
 
@@ -194,12 +212,12 @@ li {
   }
 }
 
-// signin block
+// signup block
 
-.signin-block {
-  width: 290px;
+.signup-block {
+  width: 324px;
   form {
-    height: 520px;
+    height: 550px;
   }
 }
 
@@ -244,8 +262,32 @@ li {
       color: $main-blue;
     }
   }
+}
 
-  .user-info-table {
-    margin-bottom: 100px;
+// user info table
+
+.user-info-table {
+  margin-bottom: 100px;
+}
+
+// change user profile table
+
+.change-user-profile-table {
+  margin-bottom: 110px;
+
+  .form-field {
+    height: 36px;
+
+    input {
+      border-bottom: 0;
+    }
+  }
+
+  .grid-raw {
+    height: 40px;
+
+    &:last-child {
+      border-bottom: $outline-gray 1px solid;
+    }
   }
 }

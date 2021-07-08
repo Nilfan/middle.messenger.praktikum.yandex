@@ -4,15 +4,17 @@ export const loginPageTemplate = `
       <form class="column-vertical-align">
         <h2 class="title"> Вход </h2>
         <div class="form-field">
-          <input class="text-input invalid" name="login" placeholder="Логин"/>
+          <label class="form-field-label" for="login">Логин</label>
+          <input class="text-input invalid" name="login" id="login" placeholder="Логин"/>
           <span class="error-text"> Неверный логин или пароль<span>
         </div>
         <div class="form-field">
-          <input class="text-input invalid" name="password" placeholder="Пароль"/>
+          <label class="form-field-label" for="password">Пароль</label>
+          <input class="text-input invalid" name="password" id="password" placeholder="Пароль"/>
         </div>
         <div class="controls"> 
           <button class="btn btn-ok"> Авторизоваться </button>
-          <a class="link" href="/signin"> Нет аккаунта? </a>
+          <a class="link" href="/signup"> Нет аккаунта? </a>
         </div>
       </form>
     </main>
