@@ -1,13 +1,13 @@
-// build
+# build
 /dist
 
 
-// dependecies
+# dependecies
 /node_modules
 
-// VS config
+# VS config
 .prettierrc
 /.vscode
 
-// cache
+# cache
 /.parcel-cache

@@ -5,10 +5,10 @@ import Handlebars from "handlebars";
 
 export class LoginPage {
   constructor() {
-    this.template = Handlebars.compile(loginPageTemplate)
+    this.compiler = Handlebars.compile(loginPageTemplate)
   }
 
   compile() {
-    return this.template()
+    return this.compiler()
   }
 }

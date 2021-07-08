@@ -6,15 +6,15 @@ import Handlebars from "handlebars";
 export class ErrorPage {
 
   constructor() {
-    this.template = Handlebars.compile(errorPageTemplate)
+    this.compiler = Handlebars.compile(errorPageTemplate)
   }
 
   compile({
     code,
     text,
-    buttonText = 'Назад к чатам'
+    buttonText = 'Вернуться на страницу логина'
   }) {
-    return this.template({
+    return this.compiler({
       code,
       text,
       buttonText
