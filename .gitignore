@@ -1,0 +1,13 @@
+# build
+/dist
+
+
+# dependecies
+/node_modules
+
+# VS config
+.prettierrc
+/.vscode
+
+# cache
+/.parcel-cache
