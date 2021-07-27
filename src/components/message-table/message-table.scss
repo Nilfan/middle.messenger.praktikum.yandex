@@ -1,0 +1,27 @@
+@import "../../styles/variables.scss";
+
+.message {
+  min-width: 250px;
+  max-width: 70%;
+  border-radius: 5px;
+  border: 1px solid $middle-gray;
+  margin: 5px;
+  padding: 3px 8px;
+  box-sizing: border-box;
+  width: fit-content;
+
+  &.current-user-message {
+    border-color: $main-blue;
+    margin-left: auto;
+  }
+
+  .message-footer {
+    text-align: end;
+  }
+
+  .message-header,
+  .message-footer {
+    font-size: 12px;
+    color: $middle-gray;
+  }
+}

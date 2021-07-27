@@ -1,0 +1,21 @@
+@import "../../../styles/variables.scss";
+
+.change-user-profile-table {
+  margin-bottom: 110px;
+
+  .form-field {
+    height: 36px;
+
+    input {
+      border-bottom: 0;
+    }
+  }
+
+  .grid-raw {
+    height: 48px;
+
+    &:last-child {
+      border-bottom: $outline-gray 1px solid;
+    }
+  }
+}
