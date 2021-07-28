@@ -1,11 +1,6 @@
-import { CustomElementEvents } from "../classes/block";
 import { helpers } from "../helpers";
 import { InputType } from "../models/form-field.model";
-import {
-  CustomInputEvent,
-  InputValidatorOptions,
-  Validators,
-} from "../models/input-validator.model";
+import { InputValidatorOptions, Validators } from "../models/input-validator.model";
 
 const INVALID_CLASS = "invalid";
 
@@ -21,48 +16,44 @@ export enum InputValidatorName {
   maxLength = "maxLength",
 }
 
-export function setInputValidators(validatorsOptions: InputValidatorOptions): CustomElementEvents {
+export function getInputValidatorMethod(
+  validatorsOptions: InputValidatorOptions
+): (element: EventTarget | null | HTMLInputElement) => boolean {
   const componentValidators: Function[] = [];
-  const validatorsKeys: string[] = Object.keys(inputValidators);
 
   Object.entries(validatorsOptions).forEach(([name, option]) => {
-    if (!validatorsKeys.includes(name)) {
-      throw new Error("Неизвестный тип валидатора");
-    }
-
     componentValidators.push(inputValidators[name](option));
   });
 
-  const getValidationValue = function (event: FocusEvent) {
+  return (element: EventTarget | null) => {
     return helpers.isEmpty(componentValidators)
       ? true
-      : componentValidators.map((validator) => validator(event, this)).some((valid) => !!valid);
-  };
-
-  return {
-    focus: getValidationValue,
-    blur: getValidationValue,
+      : componentValidators.map((validator) => validator(element)).some((valid) => !!valid);
   };
 }
 
 const inputValidators: Validators = {
   required:
     () =>
-    (event: CustomInputEvent): boolean | null => {
-      if (event.target) {
-        const value = event.target.value;
-        const classList = event.target.classList;
-        const nextElem = event.target.nextElementSibling;
+    (element: HTMLInputElement): boolean => {
+      if (element) {
+        const value = element.value;
+        const classList = element.classList;
+        const nextElem = element.nextElementSibling;
 
-        switch (event.target.type) {
+        switch (element.type) {
           case InputType.password:
           case InputType.text:
             if (!value && !classList.contains(INVALID_CLASS)) {
               classList.add(INVALID_CLASS);
-              nextElem.textContent = "Поле не должно быть пустым";
+              if (nextElem) {
+                nextElem.textContent = "Поле не должно быть пустым";
+              }
             } else if (!!value && classList.contains(INVALID_CLASS)) {
               classList.remove(INVALID_CLASS);
-              nextElem.textContent = "";
+              if (nextElem) {
+                nextElem.textContent = "";
+              }
             }
             break;
         }
@@ -70,60 +61,80 @@ const inputValidators: Validators = {
         return !classList.contains(INVALID_CLASS);
       }
 
-      return null;
+      return false;
     },
 
   pattern:
     (pattern: string) =>
-    (event: CustomInputEvent): void => {
-      if (event.target) {
-        const value = event.target.value;
-        const classList = event.target.classList;
-        const nextElem = event.target.nextElementSibling;
+    (element: HTMLInputElement): boolean => {
+      if (element) {
+        const value = element.value;
+        const classList = element.classList;
+        const nextElem = element.nextElementSibling;
 
         if (!value.match(pattern) && !classList.contains(INVALID_CLASS)) {
           classList.add(INVALID_CLASS);
-          nextElem.textContent = "Неверное значение поля";
+          if (nextElem) {
+            nextElem.textContent = "Неверное значение поля";
+          }
         } else if (!!value.match(pattern) && classList.contains(INVALID_CLASS)) {
           classList.remove(INVALID_CLASS);
-          nextElem.textContent = "";
+          if (nextElem) {
+            nextElem.textContent = "";
+          }
         }
+
+        return !classList.contains(INVALID_CLASS);
       }
+
+      return false;
     },
 
   minLength:
     (minLength: number) =>
-    (event: CustomInputEvent): void => {
-      if (event.target) {
-        const value = event.target.value;
-        const classList = event.target.classList;
-        const nextElem = event.target.nextElementSibling;
+    (element: HTMLInputElement): boolean => {
+      if (element) {
+        const value = element.value;
+        const classList = element.classList;
+        const nextElem = element.nextElementSibling;
 
         if ((!value || value.length < minLength) && !classList.contains(INVALID_CLASS)) {
           classList.add(INVALID_CLASS);
-          nextElem.textContent = `Должно быть хотя бы ${minLength} символов`;
+          if (nextElem) {
+            nextElem.textContent = `Должно быть хотя бы ${minLength} символов`;
+          }
         } else if (!!value && value.length >= minLength && classList.contains(INVALID_CLASS)) {
           classList.remove(INVALID_CLASS);
-          nextElem.textContent = "";
+          if (nextElem) {
+            nextElem.textContent = "";
+          }
         }
+        return !classList.contains(INVALID_CLASS);
       }
+      return false;
     },
 
   maxLength:
     (maxLength: number) =>
-    (event: CustomInputEvent): void => {
-      if (event.target) {
-        const value = event.target.value;
-        const classList = event.target.classList;
-        const nextElem = event.target.nextElementSibling;
+    (element: HTMLInputElement): boolean => {
+      if (element) {
+        const value = element.value;
+        const classList = element.classList;
+        const nextElem = element.nextElementSibling;
 
         if ((!value || value.length > maxLength) && !classList.contains(INVALID_CLASS)) {
           classList.add(INVALID_CLASS);
-          nextElem.textContent = `Должно быть не меньше ${maxLength} символов`;
+          if (nextElem) {
+            nextElem.textContent = `Должно быть не меньше ${maxLength} символов`;
+          }
         } else if (!!value && value.length <= maxLength && classList.contains(INVALID_CLASS)) {
           classList.remove(INVALID_CLASS);
-          nextElem.textContent = "";
+          if (nextElem) {
+            nextElem.textContent = "";
+          }
         }
+        return !classList.contains(INVALID_CLASS);
       }
+      return false;
     },
 };

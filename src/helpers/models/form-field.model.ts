@@ -1,3 +1,5 @@
+import { InputValidatorOptions } from "./input-validator.model";
+
 export enum InputType {
   button = "button",
   checkbox = "checkbox",
@@ -30,4 +32,5 @@ export interface FormFieldProps {
   errorText?: string;
   type?: InputType;
   value?: string;
+  validators?: InputValidatorOptions;
 }

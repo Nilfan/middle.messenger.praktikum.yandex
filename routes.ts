@@ -14,7 +14,6 @@ import { Route, Routes } from "./src/helpers/models/route.model";
 import {
   InputValidationPattern,
   InputValidatorName,
-  setInputValidators,
 } from "./src/helpers/validation/input-validation";
 import { setFormValidation } from "./src/helpers/validation/form-validation";
 import { InputType } from "./src/helpers/models/form-field.model";
@@ -22,29 +21,29 @@ import { MessageTable } from "./src/components/message-table/message-table";
 
 const pageNotFoundRoute: Route = {
   path: "/page-not-found",
-  component: {
+  componentGetter: () => ({
     pageClass: ErrorPage,
     props: {
       code: 404,
       text: "Не туда попали",
     },
-  },
+  }),
 };
 
 const serverError: Route = {
   path: "/server-error",
-  component: {
+  componentGetter: () => ({
     pageClass: ErrorPage,
     props: {
       code: 500,
       text: "Мы уже фиксим",
     },
-  },
+  }),
 };
 
 const loginPageRoute: Route = {
   path: "/login",
-  component: {
+  componentGetter: () => ({
     pageClass: LoginPage,
     props: {
       children: {
@@ -52,10 +51,8 @@ const loginPageRoute: Route = {
           label: "Логин",
           placeholder: "Логин",
           name: "login",
-          events: {
-            input: setInputValidators({
-              [InputValidatorName.required]: null,
-            }),
+          validators: {
+            [InputValidatorName.required]: null,
           },
         }),
         PasswordInput: new FormField({
@@ -63,22 +60,20 @@ const loginPageRoute: Route = {
           placeholder: "Пароль",
           name: "password",
           type: InputType.password,
-          events: {
-            input: setInputValidators({
-              [InputValidatorName.required]: null,
-            }),
+          validators: {
+            [InputValidatorName.required]: null,
           },
         }),
       },
       formFields: ["LoginInput", "PasswordInput"],
       events: setFormValidation(),
     },
-  },
+  }),
 };
 
 const signupPageRoute: Route = {
   path: "/signup",
-  component: {
+  componentGetter: () => ({
     pageClass: SignupPage,
     props: {
       children: {
@@ -86,21 +81,17 @@ const signupPageRoute: Route = {
           label: "Почта",
           placeholder: "Почта",
           name: "email",
-          events: {
-            input: setInputValidators({
-              [InputValidatorName.required]: null,
-              [InputValidatorName.pattern]: InputValidationPattern.email,
-            }),
+          validators: {
+            [InputValidatorName.required]: null,
+            [InputValidatorName.pattern]: InputValidationPattern.email,
           },
         }),
         LoginInput: new FormField({
           label: "Логин",
           placeholder: "Логин",
           name: "login",
-          events: {
-            input: setInputValidators({
-              [InputValidatorName.required]: null,
-            }),
+          validators: {
+            [InputValidatorName.required]: null,
           },
         }),
 
@@ -108,41 +99,33 @@ const signupPageRoute: Route = {
           label: "Имя",
           placeholder: "Имя",
           name: "first-name",
-          events: {
-            input: setInputValidators({
-              [InputValidatorName.required]: null,
-            }),
+          validators: {
+            [InputValidatorName.required]: null,
           },
         }),
         LastNameInput: new FormField({
           label: "Фамилия",
           placeholder: "Фамилия",
           name: "last-name",
-          events: {
-            input: setInputValidators({
-              [InputValidatorName.required]: null,
-            }),
+          validators: {
+            [InputValidatorName.required]: null,
           },
         }),
         PhoneInput: new FormField({
           label: "Телефон",
           placeholder: "Телефон",
           name: "phone",
-          events: {
-            input: setInputValidators({
-              [InputValidatorName.required]: null,
-              [InputValidatorName.pattern]: InputValidationPattern.phone,
-            }),
+          validators: {
+            [InputValidatorName.required]: null,
+            [InputValidatorName.pattern]: InputValidationPattern.phone,
           },
         }),
         PasswordInput: new FormField({
           label: "Пароль",
           placeholder: "Пароль",
           name: "password",
-          events: {
-            input: setInputValidators({
-              [InputValidatorName.required]: null,
-            }),
+          validators: {
+            [InputValidatorName.required]: null,
           },
           type: InputType.password,
         }),
@@ -150,10 +133,8 @@ const signupPageRoute: Route = {
           label: "Новый пароль ещё раз",
           placeholder: "Новый пароль ещё раз",
           name: "password-verification",
-          events: {
-            input: setInputValidators({
-              [InputValidatorName.required]: null,
-            }),
+          validators: {
+            [InputValidatorName.required]: null,
           },
           type: InputType.password,
         }),
@@ -169,12 +150,12 @@ const signupPageRoute: Route = {
       ],
       events: setFormValidation(),
     },
-  },
+  }),
 };
 
 const userProfilePageRoute: Route = {
   path: "/user-profile",
-  component: {
+  componentGetter: () => ({
     pageClass: UserProfilePage,
     props: {
       children: {
@@ -191,12 +172,12 @@ const userProfilePageRoute: Route = {
       },
       avatarImageUrl: null,
     },
-  },
+  }),
 };
 
 const changeUserProfilePageRoute: Route = {
   path: "/change-user-profile",
-  component: {
+  componentGetter: () => ({
     pageClass: UserProfilePage,
     props: {
       children: {
@@ -207,21 +188,17 @@ const changeUserProfilePageRoute: Route = {
               label: "Почта",
               placeholder: "Почта",
               name: "email",
-              events: {
-                input: setInputValidators({
-                  [InputValidatorName.required]: null,
-                  [InputValidatorName.pattern]: InputValidationPattern.email,
-                }),
+              validators: {
+                [InputValidatorName.required]: null,
+                [InputValidatorName.pattern]: InputValidationPattern.email,
               },
             }),
             LoginInput: new FormField({
               label: "Логин",
               placeholder: "Логин",
               name: "login",
-              events: {
-                input: setInputValidators({
-                  [InputValidatorName.required]: null,
-                }),
+              validators: {
+                [InputValidatorName.required]: null,
               },
             }),
 
@@ -230,34 +207,34 @@ const changeUserProfilePageRoute: Route = {
               placeholder: "Имя",
               name: "first-name",
               events: {
-                input: setInputValidators({
-                  [InputValidatorName.required]: null,
-                }),
+                [InputValidatorName.required]: null,
               },
             }),
             LastNameInput: new FormField({
               label: "Фамилия",
               placeholder: "Фамилия",
               name: "last-name",
-              events: {
-                input: setInputValidators({
-                  [InputValidatorName.required]: null,
-                }),
+              validators: {
+                [InputValidatorName.required]: null,
               },
             }),
             PhoneInput: new FormField({
               label: "Телефон",
               placeholder: "Телефон",
               name: "phone",
-              events: {
-                input: setInputValidators({
-                  [InputValidatorName.required]: null,
-                  [InputValidatorName.pattern]: InputValidationPattern.phone,
-                }),
+              validators: {
+                [InputValidatorName.required]: null,
+                [InputValidatorName.pattern]: InputValidationPattern.phone,
               },
             }),
           },
-          formFields: ["EmailInput", "LoginInput", "FirstNameInput", "LastNameInput", "PhoneInput"],
+          formsFields: [
+            "EmailInput",
+            "LoginInput",
+            "FirstNameInput",
+            "LastNameInput",
+            "PhoneInput",
+          ],
           events: setFormValidation(),
         }),
 
@@ -267,12 +244,12 @@ const changeUserProfilePageRoute: Route = {
       },
       avatarImageUrl: null,
     },
-  },
+  }),
 };
 
 const changeUserPasswordPageRoute: Route = {
   path: "/change-user-password",
-  component: {
+  componentGetter: () => ({
     pageClass: UserProfilePage,
     props: {
       avatarImageUrl: null,
@@ -285,10 +262,8 @@ const changeUserPasswordPageRoute: Route = {
               placeholder: "Старый пароль",
               name: "old-password",
               type: InputType.password,
-              events: {
-                input: setInputValidators({
-                  [InputValidatorName.required]: null,
-                }),
+              validators: {
+                [InputValidatorName.required]: null,
               },
             }),
             PasswordInput: new FormField({
@@ -296,10 +271,8 @@ const changeUserPasswordPageRoute: Route = {
               placeholder: "Новый пароль",
               name: "password",
               type: InputType.password,
-              events: {
-                input: setInputValidators({
-                  [InputValidatorName.required]: null,
-                }),
+              validators: {
+                [InputValidatorName.required]: null,
               },
             }),
             PasswordVerificationInput: new FormField({
@@ -307,14 +280,12 @@ const changeUserPasswordPageRoute: Route = {
               placeholder: "Новый пароль ещё раз",
               name: "password-verification",
               type: InputType.password,
-              events: {
-                input: setInputValidators({
-                  [InputValidatorName.required]: null,
-                }),
+              validators: {
+                [InputValidatorName.required]: null,
               },
             }),
           },
-          formFields: ["OldPasswordInput", "PasswordInput", "PasswordVerificationInput"],
+          formsFields: ["OldPasswordInput", "PasswordInput", "PasswordVerificationInput"],
           events: setFormValidation(),
         }),
         BackButtonColumn: new BackButtonColumn({
@@ -322,12 +293,12 @@ const changeUserPasswordPageRoute: Route = {
         }),
       },
     },
-  },
+  }),
 };
 
-const messengerPageRoute = {
+const messengerPageRoute: Route = {
   path: "/messenger",
-  component: {
+  componentGetter: () => ({
     pageClass: MessengerPage,
     props: {
       activeChatTitle: "Саня",
@@ -344,7 +315,7 @@ const messengerPageRoute = {
           name: "new-message",
         }),
         ChatsList: new ChatsList({
-          children: ChatsList.getChatsListFromChats([
+          chats: [
             {
               text: "New message text 1",
               date: 1627325109154,
@@ -366,7 +337,7 @@ const messengerPageRoute = {
               avatarImageURL: "",
               id: 2,
             },
-          ]),
+          ],
         }),
         MessageTable: new MessageTable({
           currentUserId: 0,
@@ -389,7 +360,7 @@ const messengerPageRoute = {
       formFields: ["SearchChatInput", "NewMessageInput"],
       events: setFormValidation(),
     },
-  },
+  }),
 };
 
 const defaultPageRoute = { ...loginPageRoute, path: "/" };
@@ -399,7 +370,7 @@ export function hasRoute(path: string): boolean {
 }
 
 export function getRoute(path: string) {
-  return routes.find((route) => route.path === path);
+  return routes.find((route) => route.path === path) || defaultPageRoute;
 }
 
 export const routes: Routes = [

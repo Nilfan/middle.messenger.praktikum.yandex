@@ -8,16 +8,9 @@ export function setFormValidation(): CustomElementEvents {
       event.preventDefault();
       const inputs: HTMLCollection = event.target.getElementsByTagName("input");
 
-      if (typeof this.props.formFields === "undefined") {
-        throw new Error(`Не хватает поля formFields в props компонента`);
-      }
-
       const validity = this.props.formFields.reduce((acc: boolean, fieldName: string) => {
         const component: FormField = this.props.children[fieldName];
 
-        if (typeof component === "undefined") {
-          throw new Error(`Нет поля в форме с именем ${fieldName}`);
-        }
         if (
           !Object.values(inputs).some(
             (input: HTMLInputElement) => input.name === component.props.name
@@ -26,7 +19,7 @@ export function setFormValidation(): CustomElementEvents {
           return acc;
         }
 
-        const fieldValidity = getFormFieldValidity(component);
+        const fieldValidity = component.validateInput();
 
         return acc && fieldValidity;
       }, true);
@@ -45,16 +38,4 @@ export function setFormValidation(): CustomElementEvents {
       }
     },
   };
-}
-
-function getFormFieldValidity(component: FormField) {
-  const inputListeners = component.childrenListeners.input;
-  const inputListenersKeys =
-    typeof inputListeners !== "undefined" ? Object.keys(inputListeners) : [];
-
-  return inputListenersKeys.length !== 0
-    ? inputListeners[inputListenersKeys[0]]({
-        target: component.getContent().getElementsByTagName("input")[0],
-      })
-    : true;
 }

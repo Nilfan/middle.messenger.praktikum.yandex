@@ -7,7 +7,8 @@
     "dev": "parcel index.html --port=3000",
     "server": "node index.js --port=3000",
     "build": "parcel build index.html",
-    "start": "parcel build index.html && node ./server.js"
+    "start": "parcel build index.html && node ./server.js",
+    "stylelint": "npx stylelint \"**/*.scss\""
   },
   "repository": {
     "type": "git",

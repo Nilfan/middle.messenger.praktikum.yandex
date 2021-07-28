@@ -1,5 +1,7 @@
 export const formFieldTmpl = `
-    <label class="form-field-label" for="{{name}}">{{label}}</label>
+    <label class="form-field-label" for="{{name}}">
+      {{label}}
+    </label>
     <input 
         class="text-input {{#if errorText}} invalid {{/if}}" 
         name="{{name}}" 
@@ -9,5 +11,7 @@ export const formFieldTmpl = `
         value="{{value}}"
         autocomplete="off"
     />
-    <span class="error-text"> {{ errorText }} <span>
+    <span class="error-text"> 
+      {{errorText}}
+    <span>
 `;

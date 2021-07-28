@@ -10,10 +10,8 @@ export const messengerTmpl = `
         <button type="submit" class="material-icons icon-button"> search </button>
       </form>
     </div>
-    
     <ChatsList> </ChatsList> 
   </div>
-
   <div class="right-side">
     <navbar class="current-chat-header">
       <ActiveChatAvatarImage> </ActiveChatAvatarImage>
@@ -30,7 +28,5 @@ export const messengerTmpl = `
         <button type="submit" class="material-icons icon-button"> send </button>
       </form>
     </div>
-
   </div>
-
 `;

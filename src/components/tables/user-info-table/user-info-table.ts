@@ -1,4 +1,5 @@
 import * as Handlebars from "handlebars";
+
 import Block from "../../../helpers/classes/block";
 import { Props } from "../../../helpers/models/props.model";
 import { userInfoTableTmpl } from "./user-info-table.tmpl";

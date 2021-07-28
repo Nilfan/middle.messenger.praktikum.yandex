@@ -1,10 +1,11 @@
+import { ObjectLiteral } from "./object-literal";
 import { Props } from "./props.model";
 
 export interface Route {
   path: string;
-  component: {
+  componentGetter: () => {
     pageClass: any;
-    props?: Props;
+    props?: Props & ObjectLiteral;
   };
 }
 

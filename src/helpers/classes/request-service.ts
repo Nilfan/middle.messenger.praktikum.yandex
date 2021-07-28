@@ -102,3 +102,19 @@ export function fetch(url: string, options: RequestOptions) {
     throw error;
   });
 }
+
+export function get(url: string, options: RequestOptions) {
+  return fetch(url, { ...options, method: API_METHOD.GET });
+}
+
+export function post(url: string, options: RequestOptions) {
+  return fetch(url, { ...options, method: API_METHOD.POST });
+}
+
+export function put(url: string, options: RequestOptions) {
+  return fetch(url, { ...options, method: API_METHOD.PUT });
+}
+
+export function deleteRequest(url: string, options: RequestOptions) {
+  return fetch(url, { ...options, method: API_METHOD.DELETE });
+}

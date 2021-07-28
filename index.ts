@@ -9,13 +9,9 @@ const generatePage = (pageClass, props = {}) => {
   return page;
 };
 
-const pageMeta = getRoute(
-  hasRoute(window.location.pathname)
-    ? window.location.pathname
-    : defaultPageName
-);
+const pageMeta = getRoute(window.location.pathname);
 
-const { pageClass, props } = pageMeta.component;
+const { pageClass, props } = pageMeta.componentGetter();
 
 const page = generatePage(pageClass, props);
 

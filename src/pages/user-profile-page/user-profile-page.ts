@@ -6,7 +6,6 @@ import Block from "../../helpers/classes/block";
 export class UserProfilePage extends Block {
   constructor(props: Props) {
     const containerClassNames = ["page-content-container"];
-
     super(props, "div", containerClassNames);
   }
 

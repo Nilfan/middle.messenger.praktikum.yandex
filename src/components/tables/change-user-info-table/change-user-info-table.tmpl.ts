@@ -8,9 +8,10 @@ export const changeUserInfoTableTmpl = `
     {{#each rows}}
       <div class="grid-raw">
         <div class="raw-key"> 
-          <{{this}}></{{this}}>
+          <{{this}}> </{{this}}>
         </div>
-        <div class="raw-value"> </div>
+        <div class="raw-value">
+        </div>
       </div>
     {{/each}}
     </div>
@@ -19,36 +20,4 @@ export const changeUserInfoTableTmpl = `
       </div>
     </div>
   </form>
-
 `;
-
-// <div class="grid-raw">
-//         <div class="raw-key">
-//           <EmailInput></EmailInput>
-//         </div>
-//         <div class="raw-value"> </div>
-//       </div>
-//       <div class="grid-raw">
-//         <div class="raw-key">
-//           <LoginInput></LoginInput>
-//         </div>
-//         <div class="raw-value"> </div>
-//       </div>
-//       <div class="grid-raw">
-//         <div class="raw-key">
-//           <FirstNameInput></FirstNameInput>
-//         </div>
-//         <div class="raw-value"> </div>
-//       </div>
-//       <div class="grid-raw">
-//         <div class="raw-key">
-//           <LastNameInput></LastNameInput>
-//         </div>
-//         <div class="raw-value"> </div>
-//       </div>
-//       <div class="grid-raw">
-//         <div class="raw-key">
-//           <PhoneInput></PhoneInput>
-//         </div>
-//         <div class="raw-value"> </div>
-//       </div>

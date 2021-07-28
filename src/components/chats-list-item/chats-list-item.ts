@@ -1,13 +1,10 @@
+import * as Handlebars from "handlebars";
+
 import Block from "../../helpers/classes/block";
 import { Props } from "../../helpers/models/props.model";
-import * as Handlebars from "handlebars";
-import "./chats-list-item.scss";
 import { chatsListItemTmpl } from "./chats-list-item.tmpl";
-
-Handlebars.registerHelper("numToTime", (num: number) => {
-  const date = new Date(num);
-  return `${date.getHours()}:${date.getMinutes()}`;
-});
+import "../../helpers/helpers";
+import "./chats-list-item.scss";
 
 export type ChatsListItemProps = Props & {
   text: string;

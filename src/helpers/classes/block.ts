@@ -1,3 +1,4 @@
+import { ObjectLiteral } from "../models/object-literal";
 import EventBus from "./event-bus";
 
 export type CustomElementEvents = { [key: string]: (args: any) => void };
@@ -11,7 +12,7 @@ export default abstract class Block {
   };
 
   readonly eventBus: EventBus = new EventBus();
-  props: Record<string, any>;
+  props: ObjectLiteral;
 
   _element: HTMLElement;
   _meta: any = null;

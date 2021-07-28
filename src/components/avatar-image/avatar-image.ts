@@ -1,7 +1,8 @@
+import * as Handlebars from "handlebars";
+
 import Block from "../../helpers/classes/block";
 import { Props } from "../../helpers/models/props.model";
 import { avatarImageTmpl } from "./avatar-image.tmpl";
-import * as Handlebars from "handlebars";
 import "./avatar-image.scss";
 
 export interface AvatarImageProps {

@@ -1,6 +1,14 @@
-function get(obj: Object, path: string, defaultValue: string | number | null | undefined) {
+import * as Handlebars from "handlebars";
+import { ObjectLiteral } from "./models/object-literal";
+
+Handlebars.registerHelper("numToTime", (num: number) => {
+  const date = new Date(num);
+  return `${date.getHours()}:${date.getMinutes()}`;
+});
+
+function get(obj: Object, path: string, defaultValue?: string | number | null) {
   const keys = path.split(".");
-  let result: { [key: string]: any } = obj;
+  let result: ObjectLiteral = obj;
 
   for (let key of keys) {
     result = result[key];
@@ -13,11 +21,11 @@ function get(obj: Object, path: string, defaultValue: string | number | null | u
   return result;
 }
 
-function first(list: any) {
+function first(list: any[]) {
   return Array.isArray(list) && list.length ? list[0] : undefined;
 }
 
-function last(list: any) {
+function last(list: any[]) {
   return Array.isArray(list) ? list[list.length - 1] : undefined;
 }
 
