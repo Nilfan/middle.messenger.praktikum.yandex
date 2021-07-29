@@ -1,0 +1,30 @@
+{
+  "plugins": ["stylelint-scss"],
+  "extends": "stylelint-config-standard",
+  "ignoreFiles": ["dist/**/*.css"],
+  "rules": {
+    "declaration-colon-newline-after": null,
+    "value-list-comma-newline-after": null,
+    "no-empty-source": null,
+    "at-rule-no-unknown": null,
+    "no-descending-specificity": null,
+    "comment-whitespace-inside": null,
+    "color-no-hex": true,
+    "scss/at-rule-no-unknown": true,
+    "selector-type-no-unknown": [
+      true,
+      {
+        "ignoreTypes": ["/^[a-zA-Z]([a-zA-Z0-9]*-[a-zA-Z0-9]+)+/"]
+      }
+    ],
+    "at-rule-empty-line-before": [
+      "always",
+      {
+        "ignoreAtRules": ["else", "include", "import", "if", "extend"]
+      }
+    ],
+    "selector-pseudo-element-colon-notation": "single",
+    "block-closing-brace-newline-after": ["always", { "ignoreAtRules": ["if", "else"] }],
+    "font-family-no-missing-generic-family-keyword": true
+  }
+}

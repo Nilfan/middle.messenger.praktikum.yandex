@@ -1,0 +1,16 @@
+@import "../../styles/variables.scss";
+
+.avatar-container {
+  height: 120px;
+  width: 120px;
+  border-radius: 60px;
+  background-color: $outline-gray;
+  margin: 0 auto;
+  position: relative;
+
+  .default-avatar-icon {
+    font-size: 52px;
+    color: $main-blue;
+    user-select: none;
+  }
+}

@@ -79,6 +79,13 @@ body,
   }
 }
 
+.icon-button {
+  border: 0;
+  background-color: transparent;
+  height: 24px;
+  cursor: pointer;
+}
+
 // grids and lists
 
 li {
@@ -107,64 +114,12 @@ li {
   }
 }
 
-// form field
-
-.form-field {
-  height: 52px;
-  width: 100%;
-  box-sizing: border-box;
-
-  .form-field-label {
-    font-size: 12px;
-    position: relative;
-    top: 3px;
-    color: rgba($main-gray, 0.5);
-  }
-
-  input {
-    border: 0;
-    border-bottom: 1px solid $main-blue;
-    padding-bottom: 1px;
-    box-sizing: border-box;
-    width: 100%;
-
-    &:focus {
-      outline: none;
-      padding-bottom: 0;
-      border-bottom: 2px solid $main-blue;
-    }
-
-    &.invalid {
-      border-color: $main-red;
-
-      &:focus {
-        border-color: 2px solid $main-blue;
-      }
-    }
-  }
-
-  &.file-input {
-    .form-field-label {
-      top: 0;
-    }
-
-    input {
-      border-bottom: 0;
-    }
-  }
-
-  .error-text {
-    color: $main-red;
-    font-size: 12px;
-  }
-}
-
 // modal block
 
 .modal-block {
   min-width: 200px;
   padding: 30px 20px 10px;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.14);
   border-radius: 20px;
   border: solid 5px $light-blue;
   box-sizing: border-box;
@@ -193,101 +148,6 @@ li {
     .page-title {
       width: 100%;
       margin-bottom: 75px;
-    }
-  }
-}
-
-.back-button-column {
-  width: 64px;
-  background-color: $outline-gray;
-}
-
-// login block
-
-.login-block {
-  width: 290px;
-
-  form {
-    height: 360px;
-  }
-}
-
-// signup block
-
-.signup-block {
-  width: 324px;
-  form {
-    height: 550px;
-  }
-}
-
-// error block
-
-.error-block {
-  .error-text {
-    margin-bottom: 50px;
-  }
-
-  .error-code {
-    font-size: 42px;
-    font-weight: 500;
-    margin-bottom: 10px;
-  }
-
-  .error-text {
-    font-size: 22px;
-  }
-}
-
-// back-button-column
-
-.back-button-column {
-  width: 64px;
-  height: 100%;
-}
-
-// user-info-content
-
-.user-info-content {
-  .profile-avatar {
-    height: 120px;
-    width: 120px;
-    border-radius: 60px;
-    background-color: $outline-gray;
-    margin: 0 auto;
-    position: relative;
-
-    .default-avatar-icon {
-      font-size: 52px;
-      color: $main-blue;
-    }
-  }
-}
-
-// user info table
-
-.user-info-table {
-  margin-bottom: 100px;
-}
-
-// change user profile table
-
-.change-user-profile-table {
-  margin-bottom: 110px;
-
-  .form-field {
-    height: 36px;
-
-    input {
-      border-bottom: 0;
-    }
-  }
-
-  .grid-raw {
-    height: 40px;
-
-    &:last-child {
-      border-bottom: $outline-gray 1px solid;
     }
   }
 }
