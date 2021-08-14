@@ -1,21 +1,34 @@
 import * as Handlebars from "handlebars";
 
-import Block from "../../../helpers/classes/block";
-import { Props } from "../../../helpers/models/props.model";
+import Block, { ComponentChildren } from "../../../helpers/classes/block";
+import { storeManager } from "../../../helpers/classes/store";
+import { authService } from "../../../services/auth-service";
+import { Button } from "../../button/button";
 import { userInfoTableTmpl } from "./user-info-table.tmpl";
 
 export interface UserInfoTableProps {
   email: string;
-  userName: string;
-  firstName: string;
-  lastName: string;
+  login: string;
+  first_name: string;
+  second_name: string;
   phone: string;
   chatName: string;
 }
 
 export class UserInfoTable extends Block {
-  constructor(props: Props & UserInfoTableProps) {
-    super(props, "div", ["custom-table"]);
+  userInfo: any;
+
+  constructor() {
+    const children = UserInfoTable.getChildren();
+    super({ children }, "div", ["custom-table"]);
+
+    storeManager.subscribe("user", (user) => {
+      this.setProps(user);
+    });
+
+    authService.getUser();
+
+    console.log(storeManager.store);
   }
 
   render(): string {
@@ -27,11 +40,11 @@ export class UserInfoTable extends Block {
 
   generateUserInfoRows({
     email,
-    userName,
-    firstName = "n/a",
-    lastName = "n/a",
+    login,
+    first_name = "n/a",
+    second_name = "n/a",
     phone = "n/a",
-  }: UserInfoTableProps) {
+  }: UserInfoTableProps): { key: string; value: string }[] {
     return [
       {
         key: "Почта",
@@ -39,20 +52,34 @@ export class UserInfoTable extends Block {
       },
       {
         key: "Логин",
-        value: userName,
+        value: login,
       },
       {
         key: "Имя",
-        value: firstName,
+        value: first_name,
       },
       {
         key: "Фамилия",
-        value: lastName,
+        value: second_name,
       },
       {
         key: "Телефон",
         value: phone,
       },
     ];
+  }
+
+  static getChildren(): ComponentChildren {
+    return {
+      LeaveButton: new Button(
+        {
+          label: "Выйти",
+          events: {
+            click: () => authService.logout(),
+          },
+        },
+        ["btn", "btn-warning", "btn_left"]
+      ),
+    };
   }
 }

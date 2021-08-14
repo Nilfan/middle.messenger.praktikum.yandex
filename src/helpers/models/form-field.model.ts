@@ -1,4 +1,5 @@
 import { InputValidatorOptions } from "./input-validator.model";
+import { Props } from "./props.model";
 
 export enum InputType {
   button = "button",
@@ -25,7 +26,7 @@ export enum InputType {
   week = "week",
 }
 
-export interface FormFieldProps {
+export interface FormFieldProps extends Props {
   name: string;
   placeholder: string;
   label: string;

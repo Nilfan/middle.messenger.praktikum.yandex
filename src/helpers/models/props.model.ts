@@ -1,7 +1,8 @@
-import Block, { CustomElementEvents } from "../classes/block";
+import { ComponentChildren, CustomElementEvents } from "../classes/block";
+import { ObjectLiteral } from "./object-literal";
 
 export interface Props {
-  children?: { [key: string]: Block };
   events?: CustomElementEvents | { [key: string]: CustomElementEvents };
-  formsFields?: string[];
+  formsFields?: { [key: string]: string[] };
+  children?: ObjectLiteral;
 }

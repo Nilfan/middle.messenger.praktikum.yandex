@@ -3,7 +3,7 @@ export const changeUserInfoTableTmpl = `
     <label class="form-field-label" for="update-avatar"> Изменить аватарку </label>
     <input type="file" name="update-avatar" id="update-avatar" />
   </div>
-  <form>
+  <form id="changeUserPasswordForm">
     <div class="two-column-grid change-user-profile-table">
     {{#each rows}}
       <div class="grid-raw">
