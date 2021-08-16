@@ -1,5 +1,5 @@
 import { Route } from "./route";
-import { ObjectLiteral } from "../models/object-literal";
+import { ObjectLiteral } from "../../helpers/models/object-literal";
 import { ROOT_QUERY } from "../../../route-path";
 
 class Router {
@@ -28,7 +28,6 @@ class Router {
   start(): void {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     window.onpopstate = (event: any) => {
-      console.log("popstate event: ", event);
       this.onRoute(event.currentTarget.location.pathname);
     };
 
@@ -39,7 +38,6 @@ class Router {
     const route = this.getRoute(pathname);
 
     if (!route) {
-      console.log("route not found");
       return;
     }
 

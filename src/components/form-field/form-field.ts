@@ -2,14 +2,14 @@ import * as Handlebars from "handlebars";
 
 import { FormFieldProps } from "../../helpers/models/form-field.model";
 import { formFieldTmpl } from "./form-field.tmpl";
-import Block from "../../helpers/classes/block";
+import Block from "../../helpers/abstract-classes/block";
 import "./form-field.scss";
 import { helpers } from "../../helpers/helpers";
 import { getInputValidatorMethod } from "../../helpers/validation/input-validation";
 
 export class FormField extends Block {
   constructor(props: FormFieldProps) {
-    super({}, "div", ["form-field"]);
+    super({}, "div", ["form-field", ...(props.classNames ?? [])]);
 
     if (props.validators && !helpers.isEmpty(props.validators)) {
       props.events = props.events ?? {};
@@ -21,10 +21,18 @@ export class FormField extends Block {
       };
     }
     this.setProps(props);
+
+    if (props.disabled) {
+      this.getInputElem().disabled = true;
+    }
   }
 
   render(): string {
     return Handlebars.compile(formFieldTmpl)(this.props);
+  }
+
+  setDisabled(disableValue: boolean): void {
+    this.getInputElem().disabled = disableValue;
   }
 
   validateInput(): boolean {
@@ -36,6 +44,10 @@ export class FormField extends Block {
 
   getInputValue(): string {
     return this.getInputElem().value;
+  }
+
+  setValue(value: string | null): void {
+    this.getInputElem().value = value ? value : "";
   }
 
   setErrorText(errorText: string): void {

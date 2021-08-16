@@ -1,14 +1,14 @@
 import { ChangeUserInfoTable } from "./src/components/tables/change-user-info-table/change-user-info-table";
 import { ChangeUserPasswordTable } from "./src/components/tables/change-user-password-table/change-user-password-table";
 import { UserInfoTable } from "./src/components/tables/user-info-table/user-info-table";
-import { RouteParams } from "./src/helpers/classes/route";
 import { ErrorPage } from "./src/pages/error-page/error-page";
 import { MessengerPage } from "./src/pages/messenger-page/messenger-page";
 import { SignupPage } from "./src/pages/signup-page/signup-page";
 import { UserProfilePage } from "./src/pages/user-profile-page/user-profile-page";
-import { router } from "./src/helpers/classes/router";
 import { LoginPage } from "./src/pages/login-page/login-page";
 import { RoutePath } from "./route-path";
+import { router } from "./src/services/router/router";
+import { RouteParams } from "./src/services/router/route";
 
 const routes: RouteParams[] = [
   {

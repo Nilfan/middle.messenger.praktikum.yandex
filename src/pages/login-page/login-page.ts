@@ -1,13 +1,13 @@
 import { loginPageTemplate } from "./login-page.tmpl";
 import * as Handlebars from "handlebars";
-import Block, { ComponentChildren } from "../../helpers/classes/block";
+import Block, { ComponentChildren } from "../../helpers/abstract-classes/block";
 import "./login-page.scss";
 import { FormField } from "../../components/form-field/form-field";
 import { InputType } from "../../helpers/models/form-field.model";
 import { InputValidatorName } from "../../helpers/validation/input-validation";
 import { Button } from "../../components/button/button";
 import { validateFormAndSubmit } from "../../helpers/validation/form-validation";
-import { authService } from "../../services/auth-service";
+import { authService } from "../../services/auth.service";
 
 export class LoginPage extends Block {
   constructor() {

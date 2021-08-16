@@ -6,11 +6,11 @@ export const chatsListItemTmpl = `
       {{this.title}} 
     </div>
     <div class="last-message-time">
-      {{numToTime this.date}} 
+      {{numToTime this.last_message?.time}} 
     </div> 
   </div>
   <div class="conversation-text"> 
-    {{this.text}} 
+    {{this.last_message?.content}} 
   </div>
 </div>
 `;

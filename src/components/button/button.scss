@@ -11,6 +11,7 @@
   margin-left: auto;
   margin-right: auto;
   display: block;
+  user-select: none;
 
   &-ok {
     background-color: $main-blue;
@@ -28,6 +29,8 @@
   background-color: transparent;
   height: 24px;
   cursor: pointer;
+  padding: 0;
+  width: 30px;
 }
 
 .btn-warning {
@@ -39,4 +42,9 @@
   text-align: left;
   margin-left: 0;
   padding-left: 0;
+}
+
+.btn_right {
+  margin-right: 0;
+  padding-right: 0;
 }

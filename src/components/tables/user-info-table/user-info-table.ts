@@ -1,38 +1,27 @@
 import * as Handlebars from "handlebars";
 
-import Block, { ComponentChildren } from "../../../helpers/classes/block";
-import { storeManager } from "../../../helpers/classes/store";
-import { authService } from "../../../services/auth-service";
+import Block, { ComponentChildren } from "../../../helpers/abstract-classes/block";
+import { StoreFields, storeManager } from "../../../services/store-manager";
+import { UserInfo } from "../../../helpers/models/user.model";
+import { authService } from "../../../services/auth.service";
 import { Button } from "../../button/button";
 import { userInfoTableTmpl } from "./user-info-table.tmpl";
-
-export interface UserInfoTableProps {
-  email: string;
-  login: string;
-  first_name: string;
-  second_name: string;
-  phone: string;
-  chatName: string;
-}
+import "./user-info-table.scss";
 
 export class UserInfoTable extends Block {
-  userInfo: any;
-
   constructor() {
     const children = UserInfoTable.getChildren();
     super({ children }, "div", ["custom-table"]);
 
-    storeManager.subscribe("user", (user) => {
-      this.setProps(user);
+    storeManager.subscribe(StoreFields.user, (user) => {
+      if (user) {
+        this.setProps(user);
+      }
     });
-
-    authService.getUser();
-
-    console.log(storeManager.store);
   }
 
   render(): string {
-    const rows = this.generateUserInfoRows(this.props as UserInfoTableProps);
+    const rows = this.generateUserInfoRows(this.props as UserInfo);
     return Handlebars.compile(userInfoTableTmpl)({
       rows,
     });
@@ -44,7 +33,8 @@ export class UserInfoTable extends Block {
     first_name = "n/a",
     second_name = "n/a",
     phone = "n/a",
-  }: UserInfoTableProps): { key: string; value: string }[] {
+    display_name = "n/a",
+  }: UserInfo): { key: string; value: string }[] {
     return [
       {
         key: "Почта",
@@ -61,6 +51,10 @@ export class UserInfoTable extends Block {
       {
         key: "Фамилия",
         value: second_name,
+      },
+      {
+        key: "Имя в чатах",
+        value: display_name,
       },
       {
         key: "Телефон",

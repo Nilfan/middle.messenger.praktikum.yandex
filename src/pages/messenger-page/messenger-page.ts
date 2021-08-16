@@ -1,85 +1,140 @@
 import * as Handlebars from "handlebars";
-import Block, { ComponentChildren } from "../../helpers/classes/block";
+import Block, { ComponentChildren } from "../../helpers/abstract-classes/block";
 import { messengerTmpl } from "./messenger-page.tmpl";
 import "./messenger-page.scss";
-import { AvatarImage } from "../../components/avatar-image/avatar-image";
 import { ChatsList } from "../../components/chats-list/chats-list";
 import { FormField } from "../../components/form-field/form-field";
-import { MessageTable } from "../../components/message-table/message-table";
-import { authService } from "../../services/auth-service";
+import { BaseMessage, Message, MessageTable } from "../../components/message-table/message-table";
+import { authService } from "../../services/auth.service";
+import { chatsService } from "../../services/chats.service";
+import { StoreFields, storeManager } from "../../services/store-manager";
+import { ChatSettings } from "../../components/chat-settings/chat-settings";
+import { validateFormAndSubmit } from "../../helpers/validation/form-validation";
+import { User } from "../../helpers/models/user.model";
+import { Chat } from "../../services/api/chats-api";
+import { MessengerHeaderComponent } from "../../components/messenger-header/messenger-header";
 
 export class MessengerPage extends Block {
-  constructor() {
-    const children = MessengerPage.getChildren();
+  activeSocket: WebSocket;
 
+  constructor() {
     authService.checkUserAuthed();
 
-    const events = {};
+    const children = MessengerPage.getChildren();
 
-    // ДОБАВИТЬ ВАЛИДАЦИЮ СТРОКИ ОТПРАВКИ СООБЩЕНИЯ
+    const events = {
+      "#sendMessageForm": validateFormAndSubmit([children.NewMessageInput], ({ message }) => {
+        children.NewMessageInput.setValue("");
+        if (this.activeSocket) {
+          this.activeSocket.send(
+            JSON.stringify({
+              content: message,
+              time: new Date(),
+              type: "message",
+            })
+          );
+        }
+      }),
+      "#addChatForm": validateFormAndSubmit([children.AddChatInput], ({ chatName }) => {
+        children.AddChatInput.setValue("");
+        chatsService.createChat(chatName);
+      }),
+    };
 
     super({ children, events }, "main", ["page-content-container"]);
+
+    chatsService.getChats();
+
+    storeManager.set(StoreFields.isUserListOpened, false);
+
+    storeManager.subscribe(StoreFields.isUserListOpened, (isUserListOpened) => {
+      if (isUserListOpened) {
+        this.props.children.ChatSettings.show();
+      } else {
+        this.props.children.ChatSettings.hide();
+      }
+    });
+
+    storeManager.subscribe(StoreFields.currentChat, (chat) => {
+      this.props.children.NewMessageInput.setDisabled(false);
+      const user = storeManager.get(StoreFields.user);
+      if (chat && user) {
+        this.openSocket(user, chat);
+      }
+    });
+  }
+
+  openSocket(user: User, chat: Chat): void {
+    this.activeSocket = new WebSocket(
+      `wss://ya-praktikum.tech/ws/chats/${user.id}/${chat.id}/${chat.token}`
+    );
+
+    this.activeSocket.addEventListener("message", (event) => {
+      const response = JSON.parse(event.data);
+
+      if (response.type === "user connected") {
+        console.log(`User connected: `, response.content);
+      } else {
+        const usersInChat = storeManager.get(StoreFields.usersInChat);
+        const currentUser = storeManager.get(StoreFields.user);
+
+        const messages = Array.isArray(response)
+          ? response.map((item) => this.getCustomMessage(item, currentUser, usersInChat)).reverse()
+          : [this.getCustomMessage(response, currentUser, usersInChat)];
+
+        storeManager.concatToValue(StoreFields.messages, messages);
+      }
+    });
+
+    this.activeSocket.addEventListener("open", () => {
+      this.activeSocket.send(
+        JSON.stringify({
+          content: "0",
+          type: "get old",
+        })
+      );
+    });
+
+    this.activeSocket.addEventListener("close", () => {
+      console.log("Соединение закрыто");
+    });
   }
 
   render(): string {
     return Handlebars.compile(messengerTmpl)(this.props);
   }
 
+  showUsersList(): void {
+    this.props.children.UsersList.hide();
+  }
+
+  getCustomMessage(message: BaseMessage, user: User, usersInChat: User[]): Message {
+    const userInChat = usersInChat.find((item) => item.id === message.user_id);
+
+    return {
+      ...message,
+      isCurrentUserMessage: user.id === message.user_id,
+      userName: userInChat ? [userInChat.first_name, userInChat.second_name].join(" ") : "NULL",
+    };
+  }
+
   static getChildren(): ComponentChildren {
     return {
-      ActiveChatAvatarImage: new AvatarImage({ avatarImageURL: "" }),
-      SearchChatInput: new FormField({
+      AddChatInput: new FormField({
         label: "",
         placeholder: "",
-        name: "search-chat",
+        name: "chatName",
       }),
+      MessengerHeader: new MessengerHeaderComponent(),
       NewMessageInput: new FormField({
         label: "",
         placeholder: "",
-        name: "new-message",
+        name: "message",
+        disabled: true,
       }),
-      ChatsList: new ChatsList({
-        chats: [
-          {
-            text: "New message text 1",
-            date: 1627325109154,
-            title: "Саня",
-            avatarImageURL: "",
-            id: 0,
-          },
-          {
-            text: "New message text 2",
-            date: 1627407346015,
-            title: "Андрей",
-            avatarImageURL: "",
-            id: 1,
-          },
-          {
-            text: "New message text 3",
-            date: 1627406986015,
-            title: "Богдан",
-            avatarImageURL: "",
-            id: 2,
-          },
-        ],
-      }),
-      MessageTable: new MessageTable({
-        currentUserId: 0,
-        messages: [
-          {
-            text: "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
-            date: 1627325109154,
-            userId: 0,
-            username: "Я",
-          },
-          {
-            text: "Хай",
-            date: 1627407346015,
-            username: "Саня",
-            userId: 1,
-          },
-        ],
-      }),
+      ChatSettings: new ChatSettings(),
+      ChatsList: new ChatsList(),
+      MessageTable: new MessageTable(),
     };
   }
 }

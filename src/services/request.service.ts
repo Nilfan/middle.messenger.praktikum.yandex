@@ -3,9 +3,10 @@ import { ObjectLiteral } from "../helpers/models/object-literal";
 interface RequestOptions {
   retries?: number;
   method?: API_METHOD;
-  data?: ObjectLiteral;
+  data?: any;
   headers?: { [key: string]: string };
   withCredentials?: boolean;
+  file?: boolean;
 }
 
 enum API_METHOD {
@@ -15,8 +16,10 @@ enum API_METHOD {
   DELETE = "DELETE",
 }
 
-export class RequestService {
-  private baseUrl = "https://ya-praktikum.tech/api/v2";
+class RequestService {
+  baseUrl = "https://ya-praktikum.tech/api/v2";
+  baseUrl2 = "https://ya-praktikum.tech";
+  baseUrl3 = "http://ya-praktikum.tech/api/v2/resources";
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fetch(url: string, options: RequestOptions): Promise<any> {
@@ -34,9 +37,8 @@ export class RequestService {
             : fullUrl;
 
         xhr.open(options.method ?? API_METHOD.GET, workUrl);
-        if (typeof options.withCredentials !== "undefined") {
-          xhr.withCredentials = options.withCredentials;
-        }
+        xhr.withCredentials =
+          typeof options.withCredentials !== "undefined" ? options.withCredentials : true;
 
         if (options.headers) {
           Object.entries(options.headers).forEach(([key, value]: [string, string]) => {
@@ -53,12 +55,11 @@ export class RequestService {
             console.log("send error: ", err);
           }
         } else {
-          xhr.send(JSON.stringify(options.data));
+          xhr.send(!!options.file ? options.data : JSON.stringify(options.data));
         }
       };
 
       xhr.onerror = function (err) {
-        console.log("onerror error: ", err);
         if (retries > 0) {
           retries -= 1;
           prepareXhr();
@@ -84,9 +85,15 @@ export class RequestService {
           prepareXhr();
           sendXhr();
         } else if (xhr.status === 200) {
-          resolve(JSON.parse(xhr.response));
+          let response = "";
+
+          try {
+            response = JSON.parse(xhr.response);
+          } catch (err) {}
+
+          resolve(response);
         } else {
-          reject(new Error());
+          reject(new Error(JSON.parse(xhr.response)?.reason));
         }
       };
 

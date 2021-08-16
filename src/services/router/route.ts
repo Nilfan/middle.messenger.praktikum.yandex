@@ -1,6 +1,6 @@
-import Block from "./block";
-import { helpers } from "../helpers";
-import { ObjectLiteral } from "../models/object-literal";
+import Block from "../../helpers/abstract-classes/block";
+import { helpers } from "../../helpers/helpers";
+import { ObjectLiteral } from "../../helpers/models/object-literal";
 import { renderBlockInRoot } from "../../../route-path";
 
 export interface RouteParams {

@@ -28,10 +28,11 @@ export enum InputType {
 
 export interface FormFieldProps extends Props {
   name: string;
-  placeholder: string;
+  placeholder?: string;
   label: string;
   errorText?: string;
   type?: InputType;
   value?: string;
   validators?: InputValidatorOptions;
+  disabled?: boolean;
 }

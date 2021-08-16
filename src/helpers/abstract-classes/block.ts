@@ -1,5 +1,5 @@
 import { ObjectLiteral } from "../models/object-literal";
-import EventBus from "../classes/event-bus";
+import EventBus from "../../services/event-bus/event-bus";
 import { Props } from "../models/props.model";
 import { helpers } from "../helpers";
 

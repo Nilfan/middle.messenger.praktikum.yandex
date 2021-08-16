@@ -1,4 +1,4 @@
-import Block from "./src/helpers/classes/block";
+import Block from "./src/helpers/abstract-classes/block";
 
 export enum RoutePath {
   Messenger = "/",

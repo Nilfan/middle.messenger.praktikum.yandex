@@ -1,5 +1,5 @@
 import { FormField } from "../../components/form-field/form-field";
-import { CustomElementEvents } from "../classes/block";
+import { CustomElementEvents } from "../abstract-classes/block";
 import { helpers } from "../helpers";
 import { CustomInputEvent } from "../models/input-validator.model";
 
@@ -23,8 +23,8 @@ export const FormValidators: { [key: string]: FormValidatorConstructor } = {
 };
 
 export function validateFormAndSubmit(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formFields: FormField[],
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   submitCallback: (...args: any) => void,
   formValidators: FormValidator[] = []
 ): CustomElementEvents {

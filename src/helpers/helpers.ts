@@ -2,8 +2,23 @@ import * as Handlebars from "handlebars";
 import { ObjectLiteral } from "./models/object-literal";
 
 Handlebars.registerHelper("numToTime", (num: number) => {
+  if (typeof num === "undefined") {
+    return "";
+  }
   const date = new Date(num);
   return `${date.getHours()}:${date.getMinutes()}`;
+});
+
+Handlebars.registerHelper("joinClassNames", (classNames: string[] = []) => {
+  return classNames.join(" ");
+});
+
+Handlebars.registerHelper("if_eq", (a, b, opts) => {
+  if (a == b) {
+    return opts.fn(this);
+  } else {
+    return opts.inverse(this);
+  }
 });
 
 function get(obj: ObjectLiteral, path: string, defaultValue?: string | number | null): any {
@@ -186,6 +201,10 @@ function set(obj: Indexed | unknown, path: string, value: unknown): Indexed | un
 function isEqual(a: any, b: any): boolean {
   if (!isObjectLike(a)) {
     return isObjectLike(b) ? false : a === b;
+  }
+
+  if (!isObjectLike(b)) {
+    return isObjectLike(a) ? false : a === b;
   }
 
   const aKeys = Object.keys(a);

@@ -1,26 +1,41 @@
 import * as Handlebars from "handlebars";
 
-import Block from "../../helpers/classes/block";
-import { Props } from "../../helpers/models/props.model";
+import Block from "../../helpers/abstract-classes/block";
 import { messageTableTmpl } from "./message-table.tmpl";
 import "./message-table.scss";
+import { StoreFields, storeManager } from "../../services/store-manager";
+import { BannerComponent } from "../banner/banner";
 
-export interface Message {
-  userId: number;
-  username: string;
-  date: number;
-  text: string;
+export interface BaseMessage {
+  chat_id: number;
+  content: string;
+  file: any;
+  id: number;
+  is_read: boolean;
+  time: string;
+  type: string;
+  user_id: number;
 }
 
-export type MessageTableProps = Props & { currentUserId: number; messages: Message[] };
+export interface Message extends BaseMessage {
+  userName: string;
+  isCurrentUserMessage: boolean;
+}
 
 export class MessageTable extends Block {
-  constructor(props: MessageTableProps) {
-    props.messages = props.messages.map((message) => ({
-      ...message,
-      isCurrentUserMessage: message.userId === props.currentUserId,
-    }));
-    super(props);
+  constructor() {
+    const children = {
+      Banner: new BannerComponent({ title: "Выберите чат" }),
+    };
+
+    super({ messages: [], children }, "div", ["message-table"]);
+
+    storeManager.subscribe(StoreFields.messages, (messages: Message) => {
+      console.log(messages);
+      this.setProps({ messages });
+    });
+
+    storeManager.subscribe(StoreFields.currentChat, (chat) => this.setProps({ chat }));
   }
 
   render(): string {

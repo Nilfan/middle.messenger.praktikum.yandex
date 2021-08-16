@@ -1,15 +1,19 @@
 export const messageTableTmpl = `
+{{#if chat}}
   {{#each messages}}
     <div class="message{{#if isCurrentUserMessage}} current-user-message{{/if}}">
       <div class="message-header"> 
-        {{this.username}} 
+        {{this.userName}} 
       </div>
       <div class="message-text"> 
-        {{this.text}} 
+        {{this.content}} 
       </div>
       <div class="message-footer"> 
-        {{numToTime this.date}} 
+        {{numToTime this.time}} 
       </div>
     </div>
   {{/each}}
+{{else}}
+  <Banner></Banner>
+{{/if}}
 `;

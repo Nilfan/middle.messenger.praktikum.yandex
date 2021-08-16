@@ -1,5 +1,5 @@
 import * as Handlebars from "handlebars";
-import Block, { ComponentChildren } from "../../helpers/classes/block";
+import Block, { ComponentChildren } from "../../helpers/abstract-classes/block";
 import { signupPageTmpl } from "./signup-page.tmpl";
 import { FormField } from "../../components/form-field/form-field";
 import { InputType } from "../../helpers/models/form-field.model";
@@ -9,9 +9,9 @@ import {
 } from "../../helpers/validation/input-validation";
 import { Button } from "../../components/button/button";
 import "./signup-page.scss";
-import { authService } from "../../services/auth-service";
+import { authService } from "../../services/auth.service";
 import { FormValidators, validateFormAndSubmit } from "../../helpers/validation/form-validation";
-import { UserBase } from "../../helpers/models/user.model";
+import { SignupOptions } from "../../helpers/models/user.model";
 
 export class SignupPage extends Block {
   constructor() {
@@ -30,7 +30,7 @@ export class SignupPage extends Block {
           children.PasswordInput,
           children.PasswordVerificationInput,
         ],
-        (user: UserBase) => authService.signin(user),
+        (user: SignupOptions) => authService.signup(user),
         [
           FormValidators.fieldsValuesShouldBeEqualValidator(
             [children.PasswordInput, children.PasswordVerificationInput],

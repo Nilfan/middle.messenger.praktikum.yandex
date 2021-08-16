@@ -1,6 +1,19 @@
-import { helpers } from "../helpers";
-import { ObjectLiteral } from "../models/object-literal";
-import EventBus from "./event-bus";
+import { helpers } from "../helpers/helpers";
+import { ObjectLiteral } from "../helpers/models/object-literal";
+import EventBus from "./event-bus/event-bus";
+
+export enum StoreFields {
+  user = "user",
+  chats = "chats",
+  currentChat = "currentChat",
+  usersInChat = "usersInChat",
+  messages = "messages",
+  // search users fields
+  isUserListOpened = "isUserListOpened",
+  searchUsers = "searchUsers",
+  searchUsersQuery = "searchUsersQuery",
+  showUsersInChat = "showUsersInChat",
+}
 
 class StoreManager {
   static instance: StoreManager;
@@ -25,9 +38,9 @@ class StoreManager {
           throw new Error("no functions in store");
         }
 
-        if (helpers.isNil(target[prop]) || helpers.isEqual(target[prop], value)) {
-          const newValue = helpers.cloneDeep(value);
-          target[prop] = newValue;
+        const newValue = helpers.cloneDeep(value);
+        target[prop] = newValue;
+        if (this.eventBus.listeners[prop]) {
           this.eventBus.emit(prop, newValue);
         }
 
@@ -42,15 +55,29 @@ class StoreManager {
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-  setInStore(prop: string, value: any): void {
+  set(prop: string, value: any): void {
     this.store[prop] = value;
+    console.log(`Store:${prop} = `, value);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+  get(path: StoreFields): any {
+    return helpers.get(this.store, path);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+  concatToValue(prop: StoreFields, value: any): void {
+    const oldValue = storeManager.get(prop);
+
+    const additionalValues = Array.isArray(value) ? value : [value];
+
+    storeManager.set(prop, [...(oldValue ? oldValue : []), ...additionalValues]);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   subscribe(prop: string, callback: (...args: any) => void): void {
     this.eventBus.on(prop, callback);
-    if (this.store[prop]) {
-      console.log(prop, this.store[prop]);
+    if (typeof this.store[prop] !== "undefined") {
       callback(this.store[prop]);
     }
   }

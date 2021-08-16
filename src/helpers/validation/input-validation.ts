@@ -23,9 +23,11 @@ export function getInputValidatorMethod(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const componentValidators: ((...args: any) => boolean)[] = [];
 
-  Object.entries(validatorsOptions).forEach(([name, option]) => {
-    componentValidators.push(inputValidators[name](option));
-  });
+  if (!helpers.isEmpty(validatorsOptions)) {
+    Object.entries(validatorsOptions).forEach(([name, option]) => {
+      componentValidators.push(inputValidators[name](option));
+    });
+  }
 
   return function () {
     return helpers.isEmpty(componentValidators)
