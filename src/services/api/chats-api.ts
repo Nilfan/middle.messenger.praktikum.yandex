@@ -1,6 +1,6 @@
 import { Message } from "../../components/message-table/message-table";
 import { User } from "../../helpers/models/user.model";
-import { requestService } from "../request.service";
+import { requestService } from "./request.service";
 
 export interface Chat {
   id: number;
