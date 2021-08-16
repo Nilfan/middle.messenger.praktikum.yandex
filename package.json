@@ -9,7 +9,7 @@
     "build": "parcel build index.html",
     "start": "parcel build index.html && node ./server.js",
     "stylelint": "npx stylelint \"**/*.scss\"",
-    "test": "mocha"
+    "test": "mocha -r ts-node/register 'src/**/*.spec.ts'"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/Nilfan/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/register": "^7.15.3",
     "@types/chai": "^4.2.21",
     "@types/mocha": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
@@ -39,5 +41,6 @@
     "stylelint-scss": "^3.14.2",
     "ts-node": "^10.2.0",
     "typescript": "^4.3.5"
-  }
+  },
+  "dependencies": {}
 }
