@@ -15,7 +15,7 @@ export enum StoreFields {
   showUsersInChat = "showUsersInChat",
 }
 
-class StoreManager {
+export class StoreManager {
   static instance: StoreManager;
 
   eventBus: EventBus;
@@ -23,7 +23,7 @@ class StoreManager {
   private _storeObject: ObjectLiteral = {};
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  store: any;
+  private store: any;
 
   constructor() {
     this.eventBus = new EventBus();
@@ -57,7 +57,6 @@ class StoreManager {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   set(prop: string, value: any): void {
     this.store[prop] = value;
-    console.log(`Store:${prop} = `, value);
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
@@ -67,11 +66,15 @@ class StoreManager {
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   concatToValue(prop: StoreFields, value: any): void {
-    const oldValue = storeManager.get(prop);
+    let oldValue = this.get(prop);
+
+    if (typeof oldValue === "undefined") {
+      oldValue = [];
+    }
 
     const additionalValues = Array.isArray(value) ? value : [value];
 
-    storeManager.set(prop, [...(oldValue ? oldValue : []), ...additionalValues]);
+    this.store[prop] = [...oldValue, ...additionalValues];
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

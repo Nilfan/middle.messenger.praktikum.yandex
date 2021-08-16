@@ -9,9 +9,14 @@
   box-sizing: border-box;
 
   .avatar-container {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     margin: 0;
+
+    img {
+      width: 45px;
+      height: 45px;
+    }
 
     .default-avatar-icon {
       font-size: 28px;
@@ -26,15 +31,5 @@
 
   .settings-button {
     margin-left: auto;
-  }
-}
-
-.avatar-container {
-  width: 45px;
-  height: 45px;
-
-  img {
-    width: 45px;
-    height: 45px;
   }
 }

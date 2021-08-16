@@ -9,7 +9,10 @@
     "build": "parcel build index.html",
     "start": "parcel build index.html && node ./server.js",
     "stylelint": "npx stylelint \"**/*.scss\"",
-    "test": "mocha -r ts-node/register 'src/**/*.spec.ts'"
+    "check-types": "tsc",
+    "compile": "babel src -d lib --extensions '.ts,.tsx'",
+    "prepublish": "npm run check-types && npm run compile",
+    "test": "./node_modules/.bin/mocha"
   },
   "repository": {
     "type": "git",
@@ -22,7 +25,10 @@
   },
   "homepage": "https://github.com/Nilfan/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
+    "@babel/cli": "^7.14.8",
     "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-typescript": "^7.15.0",
     "@babel/register": "^7.15.3",
     "@types/chai": "^4.2.21",
     "@types/mocha": "^9.0.0",
@@ -41,6 +47,5 @@
     "stylelint-scss": "^3.14.2",
     "ts-node": "^10.2.0",
     "typescript": "^4.3.5"
-  },
-  "dependencies": {}
+  }
 }
