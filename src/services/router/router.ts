@@ -1,8 +1,8 @@
 import { Route } from "./route";
 import { ObjectLiteral } from "../../helpers/models/object-literal";
-import { ROOT_QUERY } from "../../../route-path";
+import { ROOT_QUERY } from "../../../route-helpers";
 
-class Router {
+export class Router {
   static instance: Router;
 
   routes: Route[];
