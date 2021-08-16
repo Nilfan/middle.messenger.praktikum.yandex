@@ -56,36 +56,6 @@ body,
   }
 }
 
-.btn {
-  border: 0;
-  cursor: pointer;
-  padding: 8px 16px;
-  border-radius: 8px;
-  box-sizing: border-box;
-  color: $main-blue;
-  width: 190px;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-
-  &-ok {
-    background-color: $main-blue;
-    color: $white;
-  }
-
-  &-cancel {
-    background-color: transparent;
-    color: $main-blue;
-  }
-}
-
-.icon-button {
-  border: 0;
-  background-color: transparent;
-  height: 24px;
-  cursor: pointer;
-}
-
 // grids and lists
 
 li {

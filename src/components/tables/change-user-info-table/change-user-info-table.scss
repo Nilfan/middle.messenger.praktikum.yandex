@@ -19,3 +19,11 @@
     }
   }
 }
+
+.download-avatar {
+  .form-field-label {
+    cursor: pointer;
+    font-size: medium !important;
+    color: $main-blue !important;
+  }
+}

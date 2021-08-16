@@ -3,10 +3,11 @@ export const formFieldTmpl = `
       {{label}}
     </label>
     <input 
-        class="text-input {{#if errorText}} invalid {{/if}}" 
+        class="{{joinClassNames classNames}} {{#if errorText}} invalid {{/if}}" 
         name="{{name}}" 
         id="{{name}}" 
         placeholder="{{placeholder}}" 
+        {{#if_eq type "file"}}accept="image/*"{{/if_eq}}
         type="{{#if type}}{{type}}{{else}}text{{/if}}"
         value="{{value}}"
         autocomplete="off"

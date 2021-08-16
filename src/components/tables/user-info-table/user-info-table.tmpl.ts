@@ -22,7 +22,7 @@ export const userInfoTableTmpl = `
   </div>
   <div class="grid-raw">
     <div class="raw-key"> 
-      <a class="link warning-link"> Выйти </a>
+      <LeaveButton> </LeaveButton>
     </div>
     <div class="raw-value"></div>
   </div>

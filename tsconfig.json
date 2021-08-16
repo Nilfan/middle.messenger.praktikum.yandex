@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "module": "esnext",
+    "module": "commonjs",
     "target": "ES5",
     "moduleResolution": "node",
     "removeComments": true,

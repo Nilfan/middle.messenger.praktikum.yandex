@@ -1,25 +1,27 @@
 import * as Handlebars from "handlebars";
 
-import Block from "../../../helpers/classes/block";
-import { Props } from "../../../helpers/models/props.model";
+import Block, { ComponentChildren } from "../../../helpers/abstract-classes/block";
+import { StoreFields, storeManager } from "../../../services/store-manager";
+import { UserInfo } from "../../../helpers/models/user.model";
+import { authService } from "../../../services/auth.service";
+import { Button } from "../../button/button";
 import { userInfoTableTmpl } from "./user-info-table.tmpl";
-
-export interface UserInfoTableProps {
-  email: string;
-  userName: string;
-  firstName: string;
-  lastName: string;
-  phone: string;
-  chatName: string;
-}
+import "./user-info-table.scss";
 
 export class UserInfoTable extends Block {
-  constructor(props: Props & UserInfoTableProps) {
-    super(props, "div", ["custom-table"]);
+  constructor() {
+    const children = UserInfoTable.getChildren();
+    super({ children }, "div", ["custom-table"]);
+
+    storeManager.subscribe(StoreFields.user, (user) => {
+      if (user) {
+        this.setProps(user);
+      }
+    });
   }
 
   render(): string {
-    const rows = this.generateUserInfoRows(this.props as UserInfoTableProps);
+    const rows = this.generateUserInfoRows(this.props as UserInfo);
     return Handlebars.compile(userInfoTableTmpl)({
       rows,
     });
@@ -27,11 +29,12 @@ export class UserInfoTable extends Block {
 
   generateUserInfoRows({
     email,
-    userName,
-    firstName = "n/a",
-    lastName = "n/a",
+    login,
+    first_name = "n/a",
+    second_name = "n/a",
     phone = "n/a",
-  }: UserInfoTableProps) {
+    display_name = "n/a",
+  }: UserInfo): { key: string; value: string }[] {
     return [
       {
         key: "Почта",
@@ -39,20 +42,38 @@ export class UserInfoTable extends Block {
       },
       {
         key: "Логин",
-        value: userName,
+        value: login,
       },
       {
         key: "Имя",
-        value: firstName,
+        value: first_name,
       },
       {
         key: "Фамилия",
-        value: lastName,
+        value: second_name,
+      },
+      {
+        key: "Имя в чатах",
+        value: display_name,
       },
       {
         key: "Телефон",
         value: phone,
       },
     ];
+  }
+
+  static getChildren(): ComponentChildren {
+    return {
+      LeaveButton: new Button(
+        {
+          label: "Выйти",
+          events: {
+            click: () => authService.logout(),
+          },
+        },
+        ["btn", "btn-warning", "btn_left"]
+      ),
+    };
   }
 }

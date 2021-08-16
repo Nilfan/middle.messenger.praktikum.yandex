@@ -1,15 +1,21 @@
-@import "../../styles/variables.scss";
+@import "../../../styles/variables.scss";
 
 .chat-item {
   border-bottom: $light-gray 1px solid;
-  margin: 4px;
+  padding: 4px;
   min-height: 54px;
+
+  &.active-chat {
+    // border-right: 15px solid $light-blue;
+    border-left: 15px solid $light-blue;
+  }
 
   .avatar-container {
     width: 50px;
     height: 50px;
     float: left;
     margin-right: 12px;
+    margin-top: 2px;
 
     .default-avatar-icon {
       font-size: 32px;

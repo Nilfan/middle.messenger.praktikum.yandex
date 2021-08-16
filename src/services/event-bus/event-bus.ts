@@ -1,11 +1,13 @@
 export default class EventBus {
-  listeners: { [key: string]: ((...args: any[]) => void)[] };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  listeners: { [key: string]: ((...args: any) => void)[] };
 
   constructor() {
     this.listeners = {};
   }
 
-  on(event: string, callback: (...args: any[]) => void) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  on(event: string, callback: (...args: any) => void): void {
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
@@ -13,7 +15,8 @@ export default class EventBus {
     this.listeners[event].push(callback);
   }
 
-  off(event: string, callback: (...args: any[]) => void) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  off(event: string, callback: (...args: any) => void): void {
     if (!this.listeners[event]) {
       throw new Error(`Нет события: ${event}`);
     }
@@ -23,7 +26,7 @@ export default class EventBus {
     );
   }
 
-  emit(event: string, ...args: any[]) {
+  emit(event: string, ...args: any[]): void {
     if (!this.listeners[event]) {
       throw new Error(`Нет события: ${event}`);
     }

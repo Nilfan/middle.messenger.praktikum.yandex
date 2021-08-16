@@ -1,0 +1,40 @@
+@import "../../styles/variables.scss";
+
+.current-chat-header {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  border-bottom: 1px solid $light-gray;
+  box-sizing: border-box;
+
+  .avatar-container {
+    width: 40px;
+    height: 40px;
+    margin: 0;
+
+    .default-avatar-icon {
+      font-size: 28px;
+    }
+  }
+
+  .chat-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-left: 18px;
+  }
+
+  .settings-button {
+    margin-left: auto;
+  }
+}
+
+.avatar-container {
+  width: 45px;
+  height: 45px;
+
+  img {
+    width: 45px;
+    height: 45px;
+  }
+}

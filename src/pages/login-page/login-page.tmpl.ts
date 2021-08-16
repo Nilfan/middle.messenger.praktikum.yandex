@@ -1,13 +1,15 @@
 export const loginPageTemplate = `
   <main class="modal-block login-block">
-    <form class="column-vertical-align">
+    <form class="column-vertical-align" id="loginForm">
       <h2 class="title"> Вход </h2>
-      <LoginInput></LoginInput>
-      <PasswordInput></PasswordInput>
+      <LoginInput> </LoginInput>
+      <PasswordInput> </PasswordInput>
       <div class="controls"> 
-        <button class="btn btn-ok" type="submit"> Авторизоваться </button>
+        <SubmitButton> </SubmitButton>
         <a class="link" href="/signup"> Нет аккаунта? </a>
       </div>
     </form>
+
+    <LogoutButton> </LogoutButton>
   </main>
 `;

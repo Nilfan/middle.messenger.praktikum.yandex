@@ -1,0 +1,42 @@
+@import "../../../styles/variables.scss";
+
+.user-item {
+  display: flex;
+  align-items: center;
+  border-bottom: solid 1px $light-gray;
+  padding: 4px 0;
+
+  .user-item-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+
+    .name {
+      max-width: 210px;
+
+      span {
+        max-width: 210px;
+      }
+    }
+  }
+
+  .ActionButton {
+    width: 30px;
+  }
+
+  .avatar-container {
+    height: 45px;
+    width: 45px;
+    margin: 0 5px;
+
+    img {
+      height: 45px;
+      width: 45px;
+    }
+
+    .default-avatar-icon {
+      font-size: 28px;
+    }
+  }
+}
