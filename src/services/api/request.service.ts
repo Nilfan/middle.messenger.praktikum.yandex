@@ -1,4 +1,4 @@
-import { ObjectLiteral } from "../helpers/models/object-literal";
+import { ObjectLiteral } from "../../helpers/models/object-literal";
 
 interface RequestOptions {
   retries?: number;
@@ -18,8 +18,7 @@ enum API_METHOD {
 
 class RequestService {
   baseUrl = "https://ya-praktikum.tech/api/v2";
-  baseUrl2 = "https://ya-praktikum.tech";
-  baseUrl3 = "http://ya-praktikum.tech/api/v2/resources";
+  resourceUrl = "http://ya-praktikum.tech/api/v2/resources";
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fetch(url: string, options: RequestOptions): Promise<any> {
