@@ -64,7 +64,7 @@ class RequestService {
           prepareXhr();
           sendXhr();
         } else {
-          throw new Error("onerror");
+          throw new Error(err.type);
         }
       };
 
