@@ -50,3 +50,8 @@
   from = "/messenger"
   to = "/"
   status = 200
+
+[[redirects]]
+ from = "/api/*"
+ to = "https://ya-praktikum.tech/:splat"
+ status = 200

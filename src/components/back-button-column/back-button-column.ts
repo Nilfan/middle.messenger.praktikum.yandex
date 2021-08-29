@@ -1,6 +1,6 @@
 import * as Handlebars from "handlebars";
 
-import Block from "../../helpers/classes/block";
+import Block from "../../helpers/abstract-classes/block";
 import { backButtonColumnTmpl } from "./back-button-column.tmpl";
 import "./back-button-column.scss";
 

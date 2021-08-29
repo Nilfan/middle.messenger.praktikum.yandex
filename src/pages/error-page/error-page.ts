@@ -1,7 +1,7 @@
 import { errorPageTemplate } from "./error-page.tmpl";
 import * as Handlebars from "handlebars";
 import { Props } from "../../helpers/models/props.model";
-import Block from "../../helpers/classes/block";
+import Block from "../../helpers/abstract-classes/block";
 import "./error-page.scss";
 
 type ErrorPageContext = Props & {

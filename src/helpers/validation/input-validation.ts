@@ -1,3 +1,4 @@
+import { FormField } from "../../components/form-field/form-field";
 import { helpers } from "../helpers";
 import { InputType } from "../models/form-field.model";
 import { InputValidatorOptions, Validators } from "../models/input-validator.model";
@@ -19,122 +20,89 @@ export enum InputValidatorName {
 export function getInputValidatorMethod(
   validatorsOptions: InputValidatorOptions
 ): (element: EventTarget | null | HTMLInputElement) => boolean {
-  const componentValidators: Function[] = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const componentValidators: ((...args: any) => boolean)[] = [];
 
-  Object.entries(validatorsOptions).forEach(([name, option]) => {
-    componentValidators.push(inputValidators[name](option));
-  });
+  if (!helpers.isEmpty(validatorsOptions)) {
+    Object.entries(validatorsOptions).forEach(([name, option]) => {
+      componentValidators.push(inputValidators[name](option));
+    });
+  }
 
-  return (element: EventTarget | null) => {
+  return function () {
     return helpers.isEmpty(componentValidators)
       ? true
-      : componentValidators.map((validator) => validator(element)).some((valid) => !!valid);
+      : componentValidators.map((validator) => validator(this)).some((valid) => !!valid);
   };
 }
 
 const inputValidators: Validators = {
   required:
     () =>
-    (element: HTMLInputElement): boolean => {
-      if (element) {
-        const value = element.value;
-        const classList = element.classList;
-        const nextElem = element.nextElementSibling;
+    (formField: FormField): boolean => {
+      const value = formField.getInputValue();
 
-        switch (element.type) {
-          case InputType.password:
-          case InputType.text:
-            if (!value && !classList.contains(INVALID_CLASS)) {
-              classList.add(INVALID_CLASS);
-              if (nextElem) {
-                nextElem.textContent = "Поле не должно быть пустым";
-              }
-            } else if (!!value && classList.contains(INVALID_CLASS)) {
-              classList.remove(INVALID_CLASS);
-              if (nextElem) {
-                nextElem.textContent = "";
-              }
-            }
-            break;
-        }
-
-        return !classList.contains(INVALID_CLASS);
+      switch (formField.props.type) {
+        case InputType.password:
+        case InputType.text:
+          if (!value && !formField.isInputHasClass(INVALID_CLASS)) {
+            formField.addClassName(INVALID_CLASS);
+            formField.setErrorText("Поле не должно быть пустым");
+          } else if (!!value && formField.isInputHasClass(INVALID_CLASS)) {
+            formField.deleteClassName(INVALID_CLASS);
+            formField.setErrorText("");
+          }
+          break;
       }
 
-      return false;
+      return !formField.isInputHasClass(INVALID_CLASS);
     },
 
   pattern:
     (pattern: string) =>
-    (element: HTMLInputElement): boolean => {
-      if (element) {
-        const value = element.value;
-        const classList = element.classList;
-        const nextElem = element.nextElementSibling;
+    (formField: FormField): boolean => {
+      const value = formField.getInputValue() || "";
 
-        if (!value.match(pattern) && !classList.contains(INVALID_CLASS)) {
-          classList.add(INVALID_CLASS);
-          if (nextElem) {
-            nextElem.textContent = "Неверное значение поля";
-          }
-        } else if (!!value.match(pattern) && classList.contains(INVALID_CLASS)) {
-          classList.remove(INVALID_CLASS);
-          if (nextElem) {
-            nextElem.textContent = "";
-          }
-        }
-
-        return !classList.contains(INVALID_CLASS);
+      if (!value.match(pattern) && !formField.isInputHasClass(INVALID_CLASS)) {
+        formField.addClassName(INVALID_CLASS);
+        formField.setErrorText("Неверное значение поля");
+      } else if (!!value.match(pattern) && formField.isInputHasClass(INVALID_CLASS)) {
+        formField.deleteClassName(INVALID_CLASS);
+        formField.setErrorText("");
       }
 
-      return false;
+      return !formField.isInputHasClass(INVALID_CLASS);
     },
 
   minLength:
     (minLength: number) =>
-    (element: HTMLInputElement): boolean => {
-      if (element) {
-        const value = element.value;
-        const classList = element.classList;
-        const nextElem = element.nextElementSibling;
+    (formField: FormField): boolean => {
+      const value = formField.getInputValue() || "";
 
-        if ((!value || value.length < minLength) && !classList.contains(INVALID_CLASS)) {
-          classList.add(INVALID_CLASS);
-          if (nextElem) {
-            nextElem.textContent = `Должно быть хотя бы ${minLength} символов`;
-          }
-        } else if (!!value && value.length >= minLength && classList.contains(INVALID_CLASS)) {
-          classList.remove(INVALID_CLASS);
-          if (nextElem) {
-            nextElem.textContent = "";
-          }
-        }
-        return !classList.contains(INVALID_CLASS);
+      if ((!value || value.length < minLength) && !formField.isInputHasClass(INVALID_CLASS)) {
+        formField.addClassName(INVALID_CLASS);
+        formField.setErrorText(`Должно быть хотя бы ${minLength} символов`);
+      } else if (!!value && value.length >= minLength && formField.isInputHasClass(INVALID_CLASS)) {
+        formField.deleteClassName(INVALID_CLASS);
+        formField.setErrorText("");
       }
-      return false;
+
+      return !formField.isInputHasClass(INVALID_CLASS);
     },
 
   maxLength:
     (maxLength: number) =>
-    (element: HTMLInputElement): boolean => {
-      if (element) {
-        const value = element.value;
-        const classList = element.classList;
-        const nextElem = element.nextElementSibling;
+    (formField: FormField): boolean => {
+      const value = formField.getInputValue() || "";
 
-        if ((!value || value.length > maxLength) && !classList.contains(INVALID_CLASS)) {
-          classList.add(INVALID_CLASS);
-          if (nextElem) {
-            nextElem.textContent = `Должно быть не меньше ${maxLength} символов`;
-          }
-        } else if (!!value && value.length <= maxLength && classList.contains(INVALID_CLASS)) {
-          classList.remove(INVALID_CLASS);
-          if (nextElem) {
-            nextElem.textContent = "";
-          }
-        }
-        return !classList.contains(INVALID_CLASS);
+      if ((!value || value.length > maxLength) && !formField.isInputHasClass(INVALID_CLASS)) {
+        formField.addClassName(INVALID_CLASS);
+        formField.setErrorText(`Должно быть не меньше ${maxLength} символов`);
+      } else if (!!value && value.length <= maxLength && formField.isInputHasClass(INVALID_CLASS)) {
+        formField.deleteClassName(INVALID_CLASS);
+        formField.setErrorText("");
       }
-      return false;
+
+      return !formField.isInputHasClass(INVALID_CLASS);
     },
 };
