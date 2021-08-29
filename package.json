@@ -13,7 +13,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm-run-all lint:css"
+      "pre-commit": "npm-run-all lint:css",
+      "pre-push": "npm run lint:css"
     }
   },
   "repository": {
