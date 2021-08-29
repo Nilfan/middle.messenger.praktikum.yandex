@@ -1,14 +1,14 @@
-import { ChangeUserInfoTable } from "./src/components/tables/change-user-info-table/change-user-info-table";
-import { ChangeUserPasswordTable } from "./src/components/tables/change-user-password-table/change-user-password-table";
-import { UserInfoTable } from "./src/components/tables/user-info-table/user-info-table";
-import Block from "./src/helpers/abstract-classes/block";
-import { ErrorPage } from "./src/pages/error-page/error-page";
-import { LoginPage } from "./src/pages/login-page/login-page";
-import { MessengerPage } from "./src/pages/messenger-page/messenger-page";
-import { SignupPage } from "./src/pages/signup-page/signup-page";
-import { UserProfilePage } from "./src/pages/user-profile-page/user-profile-page";
-import { RouteParams } from "./src/services/router/route";
-import { router, Router } from "./src/services/router/router";
+import { ChangeUserInfoTable } from "./components/tables/change-user-info-table/change-user-info-table";
+import { ChangeUserPasswordTable } from "./components/tables/change-user-password-table/change-user-password-table";
+import { UserInfoTable } from "./components/tables/user-info-table/user-info-table";
+import Block from "./helpers/abstract-classes/block";
+import { ErrorPage } from "./pages/error-page/error-page";
+import { LoginPage } from "./pages/login-page/login-page";
+import { MessengerPage } from "./pages/messenger-page/messenger-page";
+import { SignupPage } from "./pages/signup-page/signup-page";
+import { UserProfilePage } from "./pages/user-profile-page/user-profile-page";
+import { RouteParams } from "./services/router/route";
+import { Router, router } from "./services/router/router";
 
 export enum RoutePath {
   Messenger = "/",

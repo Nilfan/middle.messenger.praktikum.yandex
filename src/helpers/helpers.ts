@@ -1,7 +1,7 @@
-import * as Handlebars from "handlebars";
+import { registerHelper } from "handlebars";
 import { ObjectLiteral } from "./models/object-literal";
 
-Handlebars.registerHelper("numToTime", (num: number) => {
+registerHelper("numToTime", (num: number) => {
   if (typeof num === "undefined") {
     return "";
   }
@@ -9,11 +9,11 @@ Handlebars.registerHelper("numToTime", (num: number) => {
   return `${date.getHours()}:${date.getMinutes()}`;
 });
 
-Handlebars.registerHelper("joinClassNames", (classNames: string[] = []) => {
+registerHelper("joinClassNames", (classNames: string[] = []) => {
   return classNames.join(" ");
 });
 
-Handlebars.registerHelper("if_eq", (a, b, opts) => {
+registerHelper("if_eq", (a, b, opts) => {
   if (a == b) {
     return opts.fn(this);
   } else {
