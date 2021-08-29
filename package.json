@@ -10,12 +10,15 @@
     "check-types": "tsc",
     "compile": "babel src -d lib --extensions '.ts,.tsx'",
     "prepublish": "npm run check-types && npm run compile",
-    "precommit": "npm run lint:css check-types",
-    "prepush": "npm run lint:css check-types"
+    "precommit": "npm-run-all lint:css check-types",
+    "prepush": "npm-run-all lint:css check-types"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm-run-all lint:css"
+      "applypatch-msg": "echo \"[Husky] applypatch-msg\"",
+      "pre-applypatch": "echo \"[Husky] pre-applypatch\"",
+      "post-applypatch": "echo \"[Husky] post-applypatch\"",
+      "pre-commit": "echo \"[Husky] pre-commit\""
     }
   },
   "repository": {
