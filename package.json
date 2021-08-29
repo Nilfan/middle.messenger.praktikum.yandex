@@ -9,13 +9,9 @@
     "lint:css": "npx stylelint \"**/*.scss\"",
     "check-types": "tsc",
     "compile": "babel src -d lib --extensions '.ts,.tsx'",
-    "prepublish": "npm run check-types && npm run compile"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm-run-all lint:css",
-      "pre-push": "npm run lint:css"
-    }
+    "prepublish": "npm run check-types && npm run compile",
+    "precommit": "npm run lint:css check-types",
+    "prepush": "npm run lint:css check-types"
   },
   "repository": {
     "type": "git",
