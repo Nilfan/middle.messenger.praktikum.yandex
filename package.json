@@ -13,6 +13,11 @@
     "precommit": "npm run lint:css check-types",
     "prepush": "npm run lint:css check-types"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint:css"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Nilfan/middle.messenger.praktikum.yandex.git"
