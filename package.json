@@ -4,8 +4,9 @@
   "description": "Study project",
   "main": "server.js",
   "scripts": {
-    "start": "webpack-dev-server",
+    "dev": "webpack-dev-server",
     "build": "webpack",
+    "start": "npm run build && node server.js",
     "lint:css": "npx stylelint \"**/*.scss\"",
     "check-types": "tsc",
     "compile": "babel src -d lib --extensions '.ts,.tsx'",
