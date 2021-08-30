@@ -4,7 +4,7 @@
   "description": "Study project",
   "main": "server.js",
   "scripts": {
-    "start": "webpack-dev-server ",
+    "start": "webpack-dev-server",
     "build": "webpack",
     "lint:css": "npx stylelint \"**/*.scss\"",
     "check-types": "tsc",
