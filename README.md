@@ -22,12 +22,15 @@ This project helps me to figure out how frontend frameworks implemented and allo
 - /_change-user-password_ 
 - /_messenger_
 
+### Docker 
+Now app can be containerized and deployed everywhere (example of remote deployment - https://serene-cove-86232.herokuapp.com/)
+
 P.S.: Not all routes can be reached from ui, some of them can be reached only manually
 
 ## Links
 
 [UI prototype](https://www.figma.com/file/Vu1qZWDzQk5eCyDlBmDZEV/Messenger)
 
-PR: https://github.com/Nilfan/middle.messenger.praktikum.yandex/pull/5
+PR: hhttps://github.com/Nilfan/middle.messenger.praktikum.yandex/pull/6
 
 Netlify: https://goofy-benz-9f3c20.netlify.app/
