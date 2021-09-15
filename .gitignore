@@ -1,6 +1,6 @@
 # build
 /dist
-
+/lib
 
 # dependecies
 /node_modules

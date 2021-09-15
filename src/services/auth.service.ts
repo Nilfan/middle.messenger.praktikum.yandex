@@ -1,4 +1,4 @@
-import { RoutePath } from "../../route-helpers";
+import { RoutePath } from "../route-helpers";
 import { router } from "./router/router";
 import { StoreFields, storeManager } from "./store-manager";
 import { SignupOptions } from "../helpers/models/user.model";

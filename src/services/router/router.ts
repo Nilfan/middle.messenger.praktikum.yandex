@@ -1,6 +1,6 @@
 import { Route } from "./route";
 import { ObjectLiteral } from "../../helpers/models/object-literal";
-import { ROOT_QUERY } from "../../../route-helpers";
+import { ROOT_QUERY } from "../../route-helpers";
 
 export class Router {
   static instance: Router;
